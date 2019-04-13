@@ -11,12 +11,22 @@
   "dependencies": {
     "eventemitter3": "^3.1.0",
     "socket.io": "^2.2.0",
-    "webrtc-adapter": "^7.2.3"
+    "webrtc-adapter": "^7.2.3",
+    "query-string": "^6.4.2",
+    "react": "16.7.0",
+    "react-dom": "16.7.0",
+    "rtc-client": "1.0.0"
   },
   "devDependencies": {
     "@types/socket.io": "^2.1.2",
     "@types/socket.io-client": "^1.4.32",
-    "typescript": "^3.4.3"
+    "typescript": "^3.4.3",
+    "@types/react": "^16.7.20",
+    "@types/react-dom": "^16.0.11",
+    "http-server": "^0.11.1",
+    "ts-loader": "^5.3.3",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   },
   "license": "MIT"
 }
