@@ -15,7 +15,7 @@ interface RTCState {
 }
 
 // const WS_SERVER_URL = 'https://wix-live-ws-server.herokuapp.com/';
-const WS_SERVER_URL = 'http://localhost:5000/';
+const WS_SERVER_URL = window.location.origin;
 
 class RTCVideo extends React.Component<RTCProps, RTCState> {
   private rtc: RTC;
