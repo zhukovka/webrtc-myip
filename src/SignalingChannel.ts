@@ -42,6 +42,7 @@ class SignalingChannel {
         this.delegate.handleDisconnect(this.id);
       });
       socket.on('message', (msg: RTCMessage) => {
+        console.log(`Got message ${msg}`);
         switch (msg.type) {
           case MessageType.CANDIDATE:
             this.delegate.handleNewIceCandidateMsg(msg);
