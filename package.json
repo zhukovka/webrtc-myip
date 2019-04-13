@@ -6,8 +6,10 @@
   "types": "dist/RTC.d.ts",
   "scripts": {
     "prestart": "npm run build",
-    "start": "http-server",
-    "build": "webpack"
+    "start": "node index.js",
+    "test": "node test.js",
+    "build": "webpack && npm run ts:server",
+    "ts:server": "tsc index.ts --inlineSourceMap true"
   },
   "dependencies": {
     "eventemitter3": "^3.1.0",
