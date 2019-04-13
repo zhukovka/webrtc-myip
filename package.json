@@ -1,6 +1,6 @@
 {
   "name": "rtc-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "rtc-client",
   "main": "dist/RTC.js",
   "types": "dist/RTC.d.ts",
