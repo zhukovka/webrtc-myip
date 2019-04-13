@@ -1,0 +1,22 @@
+{
+  "name": "rtc-client",
+  "version": "1.0.0",
+  "description": "rtc-client",
+  "main": "dist/RTC.js",
+  "types": "dist/RTC.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+  "dependencies": {
+    "eventemitter3": "^3.1.0",
+    "socket.io": "^2.2.0",
+    "webrtc-adapter": "^7.2.3"
+  },
+  "devDependencies": {
+    "@types/socket.io": "^2.1.2",
+    "@types/socket.io-client": "^1.4.32",
+    "typescript": "^3.4.3"
+  },
+  "license": "MIT"
+}
