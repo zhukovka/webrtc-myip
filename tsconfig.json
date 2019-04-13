@@ -1,8 +1,5 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "declarationDir": "./dist",
-    "declaration": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "noImplicitAny": false,
@@ -18,6 +15,7 @@
     "node_modules"
   ],
   "files": [
-    "./src/RTC.ts"
+    "./index.ts",
+    "./src/index.tsx"
   ]
 }
