@@ -9,7 +9,8 @@
     "start": "node index.js",
     "test": "node test.js",
     "build": "webpack && npm run ts:server",
-    "ts:server": "tsc index.ts --inlineSourceMap true"
+    "ts:server": "tsc index.ts --inlineSourceMap true",
+    "heroku-prebuild": "npm install --dev"
   },
   "dependencies": {
     "ejs": "^2.5.6",
