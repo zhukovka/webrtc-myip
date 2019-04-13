@@ -5,8 +5,9 @@
   "main": "dist/RTC.js",
   "types": "dist/RTC.d.ts",
   "scripts": {
-    "build": "tsc",
-    "build:watch": "tsc --watch"
+    "prestart": "npm run build",
+    "start": "http-server",
+    "build": "webpack"
   },
   "dependencies": {
     "eventemitter3": "^3.1.0",

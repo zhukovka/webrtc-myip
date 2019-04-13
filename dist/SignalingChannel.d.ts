@@ -4,9 +4,11 @@ export interface SignalingDelegate {
     handleOfferMsg(msg: any): any;
     handleNewUser(userId: string): any;
     setId(id: string): any;
+    handleDisconnect(userId?: string): any;
 }
 declare class SignalingChannel {
     private wsURL;
+    private id;
     constructor(wsURL: string);
     private socket;
     delegate: SignalingDelegate;
