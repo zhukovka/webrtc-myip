@@ -9,9 +9,12 @@
     "start": "node index.js",
     "test": "node test.js",
     "build": "webpack && npm run ts:server",
-    "ts:server": "tsc index.ts --inlineSourceMap true"
+    "ts:server": "tsc index.ts --inlineSourceMap true",
+    "heroku-prebuild": "npm install --dev"
   },
   "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
     "eventemitter3": "^3.1.0",
     "socket.io": "^2.2.0",
     "webrtc-adapter": "^7.2.3",
@@ -25,7 +28,6 @@
     "typescript": "^3.4.3",
     "@types/react": "^16.7.20",
     "@types/react-dom": "^16.0.11",
-    "http-server": "^0.11.1",
     "ts-loader": "^5.3.3",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
