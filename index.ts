@@ -26,7 +26,7 @@ io.on('connection', function (socket) {
   
   socket.on('disconnecting', (reason) => {
     let rooms = Object.keys(socket.rooms);
-    for (const room of socket.rooms) {
+    for (const room of Object.values(socket.rooms)) {
       socket.to(room).emit('user disconnect', id);
     }
   });
@@ -71,7 +71,7 @@ io.on('connection', function (socket) {
         break;
       case MessageType.CANDIDATE:
         // sending to all clients in the room except sender
-        for (const room of socket.rooms) {
+        for (const room of Object.values(socket.rooms)) {
           socket.to(room).emit('message', msg);
         }
         break;

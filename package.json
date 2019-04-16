@@ -1,16 +1,20 @@
 {
-  "name": "rtc-client",
+  "name": "webrtc-myip",
   "version": "1.0.1",
-  "description": "rtc-client",
-  "main": "dist/RTC.js",
-  "types": "dist/RTC.d.ts",
+  "description": "WebRTC client",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "prestart": "npm run build",
     "start": "node index.js",
     "test": "node test.js",
-    "build": "webpack && npm run ts:server",
+    "build": "webpack --config webpack.dev.config.js && npm run ts:server",
     "ts:server": "tsc index.ts --inlineSourceMap true",
-    "heroku-prebuild": "npm install --dev"
+    "ts:vanila": "tsc -p tsconfig.vanila.json",
+    "vanila": "npm run ts:server && npm run ts:vanila && node index.js",
+    "heroku-prebuild": "npm install --dev",
+    "lib": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack && typedoc --out ./docs --excludePrivate",
+    "clean": "rm -rf lib lib-esm"
   },
   "dependencies": {
     "ejs": "^2.5.6",
@@ -20,19 +24,25 @@
     "react": "16.7.0",
     "react-dom": "16.7.0",
     "socket.io": "^2.2.0",
-    "ts-loader": "^5.3.3",
-    "typescript": "^3.4.3",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0",
     "webrtc-adapter": "^7.2.3",
     "socket.io-client": "^2.2.0"
   },
   "devDependencies": {
     "@types/node": "^11.13.4",
+    "@types/react": "^16.7.20",
+    "@types/react-dom": "^16.0.11",
     "@types/socket.io": "^2.1.2",
     "@types/socket.io-client": "^1.4.32",
-    "@types/react": "^16.7.20",
-    "@types/react-dom": "^16.0.11"
+    "ts-loader": "^5.3.3",
+    "typedoc": "^0.14.2",
+    "typedoc-webpack-plugin": "^1.1.4",
+    "typescript": "^3.4.3",
+    "uglifyjs-webpack-plugin": "1.3.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   },
+  "keywords": [
+    "webrtc"
+  ],
   "license": "MIT"
 }

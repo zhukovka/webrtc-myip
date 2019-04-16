@@ -1,0 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+/node_modules/
+/public/
+/index.ts
+/index.js
+/Procfile
+/.idea/
+/webpack.dev.config.js
+/src/
+/docs/
