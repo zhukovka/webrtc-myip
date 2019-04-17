@@ -2,17 +2,9 @@
   "name": "webrtc-myip",
   "version": "1.0.1",
   "description": "WebRTC client",
-  "main": "lib/webrtc-myip.js",
+  "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "prestart": "npm run build",
-    "start": "node example/index.js",
-    "test": "node test.js",
-    "build": "webpack --config webpack.dev.config.js && npm run ts:server",
-    "ts:server": "tsc example/index.ts --inlineSourceMap true",
-    "ts:vanila": "tsc -p tsconfig.vanila.json",
-    "vanila": "npm run ts:server && npm run ts:vanila && node example/index.js",
-    "heroku-prebuild": "npm install --dev",
     "lib": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack && typedoc --out ./docs --excludePrivate",
     "clean": "rm -rf lib lib-esm"
   },
