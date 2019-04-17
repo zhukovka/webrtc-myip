@@ -4,7 +4,7 @@ import adapter from 'webrtc-adapter';
 import * as EventEmitter from "eventemitter3";
 
 if (!adapter) {
-
+// unused import hack
 }
 
 export enum STATE_EVENTS {
@@ -36,7 +36,7 @@ interface StreamDestination {
     displayMedia?: HTMLElement;
 }
 
-interface ConnectionEmiter {
+interface ConnectionEmitter {
     userMedia?: EventEmitter<string | symbol>;
     displayMedia?: EventEmitter<string | symbol>;
 }
@@ -49,7 +49,7 @@ class RTC implements SignalingDelegate {
     private signaling: SignalingChannel;
     private readonly peerConnections: PeerConnections;
     private streamDestination: StreamDestination = {};
-    private emiters: ConnectionEmiter = {};
+    private emitters: ConnectionEmitter = {};
     private eventEmitter: EventEmitter<string | symbol>;
     private connectionsCount: number;
     private __debug: boolean;
@@ -245,8 +245,8 @@ class RTC implements SignalingDelegate {
                 break;
         }
         this.eventEmitter.emit(stateEvent);
-        if (this.emiters[mediaType]) {
-            this.emiters[mediaType].emit(stateEvent);
+        if (this.emitters[mediaType]) {
+            this.emitters[mediaType].emit(stateEvent);
         }
     };
     
@@ -486,7 +486,7 @@ class RTC implements SignalingDelegate {
     connectDestinationVideo(type: MediaType = 'userMedia', videoElement: HTMLVideoElement): EventEmitter {
         this.streamDestination[type] = videoElement;
         const emitter = new EventEmitter<string | symbol>();
-        this.emiters[type] = emitter;
+        this.emitters[type] = emitter;
         return emitter;
     }
     
