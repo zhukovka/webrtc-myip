@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "lib": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack && typedoc --out ./docs --excludePrivate",
+    "docs": "typedoc --out ./docs --excludePrivate",
+    "lib": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack",
     "clean": "rm -rf lib lib-esm"
   },
   "dependencies": {
