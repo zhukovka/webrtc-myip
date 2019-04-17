@@ -306,7 +306,7 @@ class RTC implements SignalingDelegate {
             };
             this.signaling.sendMessage(msg);
         } else {
-            console.log('End of candidates.');
+            this.log('End of candidates.');
         }
     }
     
@@ -318,7 +318,7 @@ class RTC implements SignalingDelegate {
         if (video) {
             video.srcObject = stream;
         } else {
-            console.log(`No video element for ${mediaType}`);
+            console.warn(`No video element for ${mediaType}`);
         }
         stream.addTrack(track);
     }
@@ -466,7 +466,7 @@ class RTC implements SignalingDelegate {
     addConnectionType(type: MediaType = 'userMedia'): void {
         const existingType = type == 'userMedia' ? 'displayMedia' : 'userMedia';
         for (const pcId of Object.keys(this.peerConnections[existingType])) {
-            this.createOffer(type, pcId);
+            this.createOffer(type, pcId).catch(console.error);
         }
     }
     
