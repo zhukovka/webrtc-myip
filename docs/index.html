@@ -101,8 +101,55 @@
 				<h2 id="install">Install</h2>
 				<p><code>npm install webrtc-myip</code></p>
 				<h2 id="sample-usage">Sample usage</h2>
-				<pre><code></code></pre><h2 id="docs">Docs</h2>
-				<p>Read full documentation here <a href="https://zhukovka.github.io/webrtc-myip/">docs</a></p>
+				<pre><code><span class="hljs-keyword">import</span> { RTC_CONFIG, WS_SERVER_URL } <span class="hljs-keyword">from</span> <span class="hljs-string">"./config"</span>;
+<span class="hljs-keyword">import</span> RTC, { STATE_EVENTS } <span class="hljs-keyword">from</span> <span class="hljs-string">"webrtc-myip"</span>;
+
+<span class="hljs-keyword">const</span> webcamEl = &lt;HTMLVideoElement&gt;<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'webcam'</span>);
+<span class="hljs-keyword">const</span> screenEl = &lt;HTMLVideoElement&gt;<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'screen'</span>);
+<span class="hljs-keyword">const</span> queryString = <span class="hljs-built_in">require</span>(<span class="hljs-string">'query-string'</span>);
+<span class="hljs-keyword">const</span> { room, isStreamer } = queryString.parse(location.search);
+
+<span class="hljs-keyword">const</span> rtc = <span class="hljs-keyword">new</span> RTC(WS_SERVER_URL, RTC_CONFIG);
+
+<span class="hljs-built_in">console</span>.log(room, isStreamer);
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">streamerFlow</span>(<span class="hljs-params">room: <span class="hljs-built_in">string</span></span>) </span>{
+    <span class="hljs-keyword">await</span> rtc.setSourceVideo(<span class="hljs-string">'userMedia'</span>, webcamEl);
+    <span class="hljs-keyword">await</span> rtc.join(room, isStreamer);
+}
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">viewerFlow</span>(<span class="hljs-params">room: <span class="hljs-built_in">string</span></span>) </span>{
+    <span class="hljs-keyword">const</span> webcam = rtc.connectDestinationVideo(<span class="hljs-string">'userMedia'</span>, webcamEl);
+    webcam.on(STATE_EVENTS.CONNECTED, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'webcam connected'</span>)
+    });
+    <span class="hljs-keyword">const</span> display = rtc.connectDestinationVideo(<span class="hljs-string">'displayMedia'</span>, screenEl);
+    display.on(STATE_EVENTS.CONNECTED, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'display connected'</span>)
+    });
+    display.on(STATE_EVENTS.DISCONNECTED, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'display disconnected'</span>)
+    });
+    <span class="hljs-keyword">await</span> rtc.join(room, isStreamer);
+}
+
+<span class="hljs-keyword">if</span> (isStreamer) {
+    streamerFlow(room).catch(<span class="hljs-built_in">console</span>.error);
+} <span class="hljs-keyword">else</span> {
+    viewerFlow(room).catch(<span class="hljs-built_in">console</span>.error);
+}</code></pre><p>See working example code in the <a href="example">example folder</a></p>
+				<h2 id="docs">Docs</h2>
+				<p>Read full documentation <a href="https://zhukovka.github.io/webrtc-myip/">here</a></p>
+				<h2 id="socket-interface">Socket interface</h2>
+				<p>To exchange peer negotiation messages (offer &amp; answer) WebRTC-myip uses web socket.
+				Pass WS URL in <code>RTC</code> instance constructor to connect to your socket.</p>
+				<pre><code><span class="hljs-keyword">new</span> <span class="hljs-type">RTC</span>(WS_SERVER_URL, RTC_CONFIG)</code></pre><p>Your socket has to implement following types of events:</p>
+				<ul>
+					<li><code>&#39;me&#39;</code> - passes just connected user id to the connected user</li>
+					<li><code>&#39;other&#39;</code> - passes connected user id to Presenter</li>
+					<li><code>&#39;message&#39;</code> - translate user&#39;s message to other participants</li>
+				</ul>
+				<p>See sample socket code in the <a href="example/index.ts">example folder</a></p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
