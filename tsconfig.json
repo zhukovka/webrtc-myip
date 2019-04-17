@@ -16,6 +16,6 @@
     "node_modules"
   ],
   "files": [
-    "./src/RTC.ts"
+    "./src/index.ts"
   ]
 }
