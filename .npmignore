@@ -6,3 +6,5 @@
 /src/
 /docs/
 /example/
+/tsconfig.json
+/webpack.config.js
