@@ -1,5 +1,31 @@
 {
   "name": "webrtc-myip-example",
   "version": "1.0.0",
-  "dependencies": {}
+  "scripts": {
+    "prestart": "npm run build",
+    "start": "node index.js",
+    "test": "node test.js",
+    "build": "webpack && npm run ts:server",
+    "ts:server": "tsc ./index.ts --inlineSourceMap true",
+    "heroku-prebuild": "npm install --dev"
+  },
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "query-string": "^6.4.2",
+    "socket.io": "^2.2.0",
+    "webrtc-myip": "zhukovka/webrtc-myip"
+  },
+  "devDependencies": {
+    "@types/node": "^11.13.4",
+    "@types/socket.io": "^2.1.2",
+    "@types/socket.io-client": "^1.4.32",
+    "ts-loader": "^5.3.3",
+    "typedoc": "^0.14.2",
+    "typedoc-webpack-plugin": "^1.1.4",
+    "typescript": "^3.4.3",
+    "uglifyjs-webpack-plugin": "1.3.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  }
 }
