@@ -55,7 +55,7 @@ if (isStreamer) {
     viewerFlow(room).catch(console.error);
 }
 ```
-See working example code in the [example folder](example)
+See working example code in the [example folder](https://github.com/zhukovka/webrtc-myip/tree/master/example)
 ## Docs
 Read full documentation [here](https://zhukovka.github.io/webrtc-myip/)
 
@@ -70,4 +70,4 @@ Your socket has to implement following types of events:
 - `'other'` - passes connected user id to Presenter
 - `'message'` - translate user's message to other participants
 
-See sample socket code in the [example folder](example/index.ts)
+See sample socket code in the [example folder](https://github.com/zhukovka/webrtc-myip/tree/master/example/index.ts)
