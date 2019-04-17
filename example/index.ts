@@ -1,4 +1,4 @@
-import { JoinMessage, MessageType, TargetMessage } from "./src/RTCMessage";
+import { JoinMessage, MessageType, TargetMessage } from "../src/RTCMessage";
 
 const express = require('express');
 const path = require('path');

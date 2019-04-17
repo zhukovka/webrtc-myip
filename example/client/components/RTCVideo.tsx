@@ -1,7 +1,7 @@
 import * as React from "react";
 // import RTC, { MediaType } from "rtc-client";
 // do NOT delete this commented code please (need for development)
-import RTC, { CLIENT_EVENTS, STATE_EVENTS } from "../RTC";
+import RTC, { CLIENT_EVENTS, STATE_EVENTS } from "../../../src/RTC";
 
 interface RTCProps {
     room: string
