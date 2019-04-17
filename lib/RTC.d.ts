@@ -18,7 +18,7 @@ declare class RTC implements SignalingDelegate {
     private signaling;
     private readonly peerConnections;
     private streamDestination;
-    private emiters;
+    private emitters;
     private eventEmitter;
     private connectionsCount;
     private __debug;

@@ -1,3 +1,1 @@
-export * from './RTC';
-export * from './RTCMessage';
-export * from './SignalingChannel';
+export { default } from './RTC';
