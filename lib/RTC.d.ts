@@ -52,7 +52,7 @@ declare class RTC implements SignalingDelegate {
      * stream, then create and send an answer to the caller.
      * @param msg
      */
-    handleOfferMsg({ mediaType, sdp, from }: NegotiationMessage): Promise<any>;
+    handleOfferMsg({ mediaType, sdp, from }: NegotiationMessage): Promise<null>;
     private handleConnectionStateChangeEvent;
     /**
      * {@link SignalingDelegate} method to handle socket message of type {@link NegotiationMessage}
@@ -160,8 +160,8 @@ declare class RTC implements SignalingDelegate {
      * @param videoElement
      */
     connectDestinationVideo(type: MediaType, videoElement: HTMLVideoElement): EventEmitter;
-    on(event: string, fn: EventEmitter.ListenerFn, context?: any): EventEmitter<string | symbol>;
-    off(event: string, fn: EventEmitter.ListenerFn, context?: any, once?: boolean): EventEmitter<string | symbol>;
+    on(event: string, fn: any, context?: any): EventEmitter<string | symbol>;
+    off(event: string, fn: any, context?: any, once?: boolean): EventEmitter<string | symbol>;
     destroy(): void;
     /**
      * {@link SignalingDelegate} method to handle socket event of type 'disconnect'.

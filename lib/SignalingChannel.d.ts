@@ -1,10 +1,11 @@
+import { ICECandidateMessage, NegotiationMessage, RTCMessage } from "./RTCMessage";
 export interface SignalingDelegate {
-    handleNewIceCandidateMsg(msg: any): any;
-    handleAnswerMsg(msg: any): any;
-    handleOfferMsg(msg: any): any;
-    handleNewUser(userId: string): any;
-    setId(id: string): any;
-    handleDisconnect(userId?: string): any;
+    handleNewIceCandidateMsg(msg: ICECandidateMessage): void;
+    handleAnswerMsg(msg: NegotiationMessage): void;
+    handleOfferMsg(msg: NegotiationMessage): void;
+    handleNewUser(userId: string): void;
+    setId(id: string): void;
+    handleDisconnect(userId?: string): void;
 }
 declare class SignalingChannel {
     private wsURL;
@@ -14,7 +15,7 @@ declare class SignalingChannel {
     private socket;
     delegate: SignalingDelegate;
     setupSocket(): Promise<{}>;
-    sendMessage(msg: any): void;
+    sendMessage(msg: RTCMessage): void;
     disconnect(): void;
     private log;
 }

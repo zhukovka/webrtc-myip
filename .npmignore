@@ -1,11 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 /node_modules/
 /public/
-/example/index.ts
-/example/index.js
 /Procfile
 /.idea/
-/example/webpack.config.js
 /src/
 /docs/
 /example/
