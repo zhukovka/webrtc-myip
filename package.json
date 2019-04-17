@@ -12,7 +12,7 @@
     "url": "https://github.com/zhukovka/webrtc-myip"
   },
   "scripts": {
-    "docs": "typedoc --out ./docs --excludePrivate",
+    "docs": "typedoc --out ./docs --excludePrivate --mode file",
     "lib": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack",
     "clean": "rm -rf lib lib-esm"
   },
