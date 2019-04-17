@@ -23,7 +23,6 @@ export interface ICECandidateMessage extends RTCMessage {
 export interface JoinMessage extends RTCMessage {
     type: MessageType.JOIN;
     room: string;
-    username: string;
     isStreamer: boolean;
 }
 export interface NegotiationMessage extends TargetMessage {
