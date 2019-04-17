@@ -9,7 +9,8 @@
     "outDir": "lib",
     "sourceMap": true,
     "declaration": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "noImplicitAny": true
   },
   "exclude": [
     "node_modules"

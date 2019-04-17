@@ -1,18 +1,18 @@
 import * as io from 'socket.io-client';
-import { MessageType, RTCMessage } from "./RTCMessage";
+import { ICECandidateMessage, MessageType, NegotiationMessage, RTCMessage } from "./RTCMessage";
 
 export interface SignalingDelegate {
-    handleNewIceCandidateMsg(msg);
+    handleNewIceCandidateMsg(msg: ICECandidateMessage): void;
     
-    handleAnswerMsg(msg);
+    handleAnswerMsg(msg: NegotiationMessage): void;
     
-    handleOfferMsg(msg);
+    handleOfferMsg(msg: NegotiationMessage): void;
     
-    handleNewUser(userId: string);
+    handleNewUser(userId: string): void;
     
-    setId(id: string);
+    setId(id: string): void;
     
-    handleDisconnect(userId?: string);
+    handleDisconnect(userId?: string): void;
 }
 
 class SignalingChannel {
@@ -33,7 +33,7 @@ class SignalingChannel {
             socket.on('connect', () => {
                 resolve();
             });
-            socket.on('disconnect', (reason) => {
+            socket.on('disconnect', (reason: string) => {
                 if (reason === 'io server disconnect') {
                     // the disconnection was initiated by the server, you need to reconnect manually
                     socket.connect();
@@ -45,15 +45,15 @@ class SignalingChannel {
             socket.on('message', (msg: RTCMessage) => {
                 switch (msg.type) {
                     case MessageType.CANDIDATE:
-                        this.delegate.handleNewIceCandidateMsg(msg);
+                        this.delegate.handleNewIceCandidateMsg(<ICECandidateMessage>msg);
                         this.log("CANDIDATE", msg);
                         break;
                     case MessageType.RTC_ANSWER:
-                        this.delegate.handleAnswerMsg(msg);
+                        this.delegate.handleAnswerMsg(<NegotiationMessage>msg);
                         this.log("RTC_ANSWER", msg);
                         break;
                     case MessageType.RTC_OFFER:
-                        this.delegate.handleOfferMsg(msg);
+                        this.delegate.handleOfferMsg(<NegotiationMessage>msg);
                         this.log("RTC_OFFER", msg);
                         break;
                 }
@@ -64,20 +64,20 @@ class SignalingChannel {
                     this.delegate.handleNewUser(id);
                 }
             });
-            socket.on('me', id => {
+            socket.on('me', (id: string) => {
                 this.id = id;
                 this.delegate.setId(id);
             });
-            socket.on('user disconnect', (id) => {
+            socket.on('user disconnect', (id: string) => {
                 this.delegate.handleDisconnect(id);
             });
-            socket.on('error', (error) => {
+            socket.on('error', (error: any) => {
                 reject(error);
             });
         })
     }
     
-    sendMessage(msg) {
+    sendMessage(msg: RTCMessage) {
         this.log('Client sending message: ', msg);
         this.socket.emit('message', msg);
     }
@@ -86,7 +86,7 @@ class SignalingChannel {
         this.socket.disconnect();
     }
     
-    private log(...args) {
+    private log(...args: any[]) {
         if (this.__debug) {
             console.log(...args);
         }

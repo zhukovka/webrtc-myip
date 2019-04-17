@@ -1,5 +1,6 @@
 import { ICECandidateMessage, JoinMessage, MediaType, MessageType, NegotiationMessage } from "./RTCMessage";
 import SignalingChannel, { SignalingDelegate } from "./SignalingChannel";
+// @ts-ignore
 import adapter from 'webrtc-adapter';
 import * as EventEmitter from "eventemitter3";
 
@@ -32,8 +33,8 @@ interface SourceStream {
 }
 
 interface StreamDestination {
-    userMedia?: HTMLElement;
-    displayMedia?: HTMLElement;
+    userMedia?: HTMLVideoElement;
+    displayMedia?: HTMLVideoElement;
 }
 
 interface ConnectionEmitter {
@@ -96,7 +97,7 @@ class RTC implements SignalingDelegate {
             // ICE candidate (created by our local ICE agent) to the other
             // peer through the signaling server.
             pc.onicecandidate = (event) => {
-                console.log('sending ICE candidate', event);
+                this.log('sending ICE candidate', event);
                 return this.handleCandidate(event.candidate, mediaType);
             };
             // Called by the WebRTC layer when events occur on the media tracks
@@ -110,18 +111,20 @@ class RTC implements SignalingDelegate {
             // MediaStream[]        streams
             // RTCRtpTransceiver    transceiver
             pc.ontrack = (event) => {
-                console.log('Track event:', event);
+                this.log('Track event:', event);
                 this.handleSourceTrack(event.track, mediaType);
             };
             pc.onconnectionstatechange = (event) => {
-                this.handleConnectionStateChangeEvent(event, mediaType);
+                this.log(event.type, event);
+                this.handleConnectionStateChangeEvent(pc, mediaType);
             };
             pc.onsignalingstatechange = (event) => {
-                this.handleConnectionStateChangeEvent(event, mediaType);
+                this.log(event.type, event);
+                this.handleConnectionStateChangeEvent(pc, mediaType);
             };
-            pc.ondatachannel = (...args) => console.log('ondatachannel', args);
-            pc.onnegotiationneeded = (...args) => console.log('onnegotiationneeded', args);
-            console.log('Created RTCPeerConnnection');
+            pc.ondatachannel = (...args) => this.log('ondatachannel', args);
+            pc.onnegotiationneeded = (...args) => this.log('onnegotiationneeded', args);
+            this.log('Created RTCPeerConnnection');
             return pc;
         } catch (e) {
             console.log('Failed to create PeerConnection, exception: ' + e.message);
@@ -191,7 +194,7 @@ class RTC implements SignalingDelegate {
      * stream, then create and send an answer to the caller.
      * @param msg
      */
-    async handleOfferMsg({ mediaType, sdp, from }: NegotiationMessage) {
+    async handleOfferMsg({ mediaType, sdp, from }: NegotiationMessage): Promise<null> {
         this.log(`GOT OFFER from ${from} to ${this.id}`);
         try {
             // 1. Create an RTCPeerConnection
@@ -225,10 +228,9 @@ class RTC implements SignalingDelegate {
         return null;
     }
     
-    private handleConnectionStateChangeEvent(event, mediaType: MediaType) {
-        console.log(event.type, event);
+    private handleConnectionStateChangeEvent(pc: RTCPeerConnection, mediaType: MediaType) {
         let stateEvent;
-        switch (event.target.connectionState) {
+        switch (pc.connectionState) {
             case 'connected':
                 stateEvent = STATE_EVENTS.CONNECTED;
                 break;
@@ -258,7 +260,7 @@ class RTC implements SignalingDelegate {
      *
      * @param msg
      */
-    handleAnswerMsg({ sdp, from, mediaType }: NegotiationMessage) {
+    handleAnswerMsg({ sdp, from, mediaType }: NegotiationMessage): void {
         //1. Create an RTCSessionDescription using the received SDP answer
         const desc = new RTCSessionDescription(sdp);
         //2. Pass the session description to RTCPeerConnection.setRemoteDescription() to configure Caller’s WebRTC layer to
@@ -291,7 +293,7 @@ class RTC implements SignalingDelegate {
         this.log("Adding received ICE candidate: " + JSON.stringify(ice), `Of type ${mediaType}`);
     }
     
-    private handleCandidate(iceCandidate: RTCIceCandidate, mediaType: MediaType) {
+    private handleCandidate(iceCandidate: RTCIceCandidate, mediaType: MediaType): void {
         if (iceCandidate) {
             const { sdpMLineIndex, sdpMid, candidate } = iceCandidate;
             const msg: ICECandidateMessage = {
@@ -308,11 +310,13 @@ class RTC implements SignalingDelegate {
         }
     }
     
-    private handleSourceTrack(track: MediaStreamTrack, mediaType: MediaType) {
+    private handleSourceTrack(track: MediaStreamTrack, mediaType: MediaType): void {
         const stream = this.destStream[mediaType] || new MediaStream();
         this.destStream[mediaType] = stream;
-        if (this.streamDestination[mediaType]) {
-            this.streamDestination[mediaType]['srcObject'] = stream;
+        
+        const video = this.streamDestination[mediaType];
+        if (video) {
+            video.srcObject = stream;
         } else {
             console.log(`No video element for ${mediaType}`);
         }
@@ -323,8 +327,8 @@ class RTC implements SignalingDelegate {
      * {@link SignalingDelegate} method to handle socket event 'other' (other user joined)
      * @param userId
      */
-    async handleNewUser(userId: string) {
-        console.log(userId);
+    async handleNewUser(userId: string): Promise<void> {
+        this.log(userId);
         this.connectionsCount++;
         this.eventEmitter.emit(CLIENT_EVENTS.COUNT_CHANGED, this.connectionsCount);
         for (const mediaType of Object.keys(this.streamDestination)) {
@@ -336,7 +340,7 @@ class RTC implements SignalingDelegate {
      * {@link SignalingDelegate} method to handle socket event of type 'me' (this user joined)
      * @param id
      */
-    setId(id: string) {
+    setId(id: string): void {
         this.id = id;
     }
     
@@ -353,7 +357,7 @@ class RTC implements SignalingDelegate {
      * @param room
      * @param isStreamer
      */
-    async join(room: string, isStreamer: boolean) {
+    async join(room: string, isStreamer: boolean): Promise<void> {
         await this.signaling.setupSocket();
         
         let msg: JoinMessage = {
@@ -367,14 +371,14 @@ class RTC implements SignalingDelegate {
     /**
      * Stops streams and disconnects from the socket server
      */
-    stop() {
+    stop(): void {
         for (const stream of Object.values(this.sourceStream)) {
             this.stopTracks(stream.getTracks());
         }
         this.signaling.disconnect();
     }
     
-    private stopTracks(tracks: MediaStreamTrack[]) {
+    private stopTracks(tracks: MediaStreamTrack[]): void {
         for (const track of tracks) {
             track.stop();
         }
@@ -383,13 +387,13 @@ class RTC implements SignalingDelegate {
     /**
      * Toggles muted state of a user's audio
      */
-    mute() {
+    mute(): void {
         if (this.sourceStream.userMedia) {
             this.enableTracks(this.sourceStream.userMedia.getAudioTracks());
         }
     }
     
-    private enableTracks(tracks: MediaStreamTrack[]) {
+    private enableTracks(tracks: MediaStreamTrack[]): void {
         for (const track of tracks) {
             track.enabled = !track.enabled;
         }
@@ -398,7 +402,7 @@ class RTC implements SignalingDelegate {
     /**
      * Toggles enabled state of a user's media (webcam)
      */
-    disableVideo() {
+    disableVideo(): void {
         if (this.sourceStream.userMedia) {
             this.enableTracks(this.sourceStream.userMedia.getVideoTracks());
         }
@@ -439,7 +443,7 @@ class RTC implements SignalingDelegate {
      * Removes media stream from the video element it is attached to.
      * @param type
      */
-    removeConnectionType(type: MediaType = 'userMedia') {
+    removeConnectionType(type: MediaType = 'userMedia'): void {
         //stop tracks from source video
         const stream = this.sourceStream[type];
         stream && this.stopTracks(stream.getTracks());
@@ -459,7 +463,7 @@ class RTC implements SignalingDelegate {
      * Opens PeerConnection of the specified {@link MediaType} on Presenter's side.
      * @param type
      */
-    addConnectionType(type: MediaType = 'userMedia') {
+    addConnectionType(type: MediaType = 'userMedia'): void {
         const existingType = type == 'userMedia' ? 'displayMedia' : 'userMedia';
         for (const pcId of Object.keys(this.peerConnections[existingType])) {
             this.createOffer(type, pcId);
@@ -485,20 +489,20 @@ class RTC implements SignalingDelegate {
      */
     connectDestinationVideo(type: MediaType = 'userMedia', videoElement: HTMLVideoElement): EventEmitter {
         this.streamDestination[type] = videoElement;
-        const emitter = new EventEmitter<string | symbol>();
+        const emitter = new EventEmitter();
         this.emitters[type] = emitter;
         return emitter;
     }
     
-    on(event: string, fn: EventEmitter.ListenerFn, context?: any) {
+    on(event: string, fn: any, context?: any): EventEmitter<string | symbol> {
         return this.eventEmitter.on(event, fn, context);
     }
     
-    off(event: string, fn: EventEmitter.ListenerFn, context?: any, once?: boolean) {
+    off(event: string, fn: any, context?: any, once?: boolean): EventEmitter<string | symbol> {
         return this.eventEmitter.off(event, fn, context, once);
     }
     
-    destroy() {
+    destroy(): void {
         this.eventEmitter.removeAllListeners()
     }
     
@@ -506,7 +510,7 @@ class RTC implements SignalingDelegate {
      * {@link SignalingDelegate} method to handle socket event of type 'disconnect'.
      * @param userId
      */
-    handleDisconnect(userId?: string) {
+    handleDisconnect(userId?: string): void {
         if (userId == this.id) { // this user disconnected -> close all connections
             this.closeAllConnections();
             this.connectionsCount = 0;
@@ -519,7 +523,7 @@ class RTC implements SignalingDelegate {
     }
     
     
-    private closeConnection(userId: string) {
+    private closeConnection(userId: string): void {
         for (const type of Object.keys(this.peerConnections)) {
             const pc: RTCPeerConnection = this.peerConnections[type][userId];
             pc && pc.close();
@@ -527,7 +531,7 @@ class RTC implements SignalingDelegate {
         }
     }
     
-    private closeAllConnections() {
+    private closeAllConnections(): void {
         for (const type of Object.keys(this.peerConnections)) {
             for (const pc of Object.values(this.peerConnections[type])) {
                 pc.close();
@@ -536,7 +540,7 @@ class RTC implements SignalingDelegate {
         }
     }
     
-    private log(...args) {
+    private log(...args: any[]): void {
         if (this.__debug) {
             console.log(...args);
         }
