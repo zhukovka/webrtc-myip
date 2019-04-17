@@ -21,4 +21,4 @@ A library for WebRTC media streaming
 ```
 
 ## Docs
-Read full documentation here [docs](docs)
+Read full documentation here [docs](https://zhukovka.github.io/webrtc-myip/)
