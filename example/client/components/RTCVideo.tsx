@@ -32,7 +32,7 @@ class RTCVideo extends React.Component<RTCProps, RTCState> {
         const userMedia = document.getElementById("userMedia") as HTMLVideoElement;
         const displayMedia = document.getElementById("displayMedia") as HTMLVideoElement;
         if (isStreamer) {
-            this.rtc.setSourceVideo('userMedia', userMedia);
+            this.rtc.setupMedia('userMedia', userMedia);
         } else {
             const webcam = this.rtc.connectDestinationVideo('userMedia', userMedia);
             webcam.on(STATE_EVENTS.CONNECTED, () => {
@@ -70,7 +70,7 @@ class RTCVideo extends React.Component<RTCProps, RTCState> {
             this.rtc.removeConnectionType('displayMedia');
         } else {
             const displayMedia = document.getElementById("displayMedia") as HTMLVideoElement;
-            await this.rtc.setSourceVideo('displayMedia', displayMedia);
+            await this.rtc.setupMedia('displayMedia', displayMedia);
             this.rtc.addConnectionType('displayMedia');
         }
         this.setState({ display: !display });

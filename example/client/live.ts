@@ -1,5 +1,5 @@
 import { RTC_CONFIG, WS_SERVER_URL } from "./config";
-import RTC, { STATE_EVENTS } from "webrtc-myip";
+import RTC, { STATE_EVENTS } from "../../src";
 
 const webcamEl = <HTMLVideoElement>document.getElementById('webcam');
 const screenEl = <HTMLVideoElement>document.getElementById('screen');
@@ -19,7 +19,7 @@ const rtc = new RTC(WS_SERVER_URL, RTC_CONFIG);
 rtc['__debug'] = true;
 
 async function streamerFlow(room: string) {
-    await rtc.setSourceVideo('userMedia', webcamEl);
+    await rtc.setupMedia('userMedia');
     await rtc.join(room, isStreamer);
 }
 
@@ -48,7 +48,7 @@ document.getElementById('join').addEventListener('click', async () => {
             shareBtn.innerText = 'Add/Remove share screen';
             shareBtn.addEventListener('click', async () => {
                 if (!sharedScreen) {
-                    await rtc.setSourceVideo('displayMedia', screenEl);
+                    await rtc.setupMedia('displayMedia');
                     rtc.addConnectionType('displayMedia');
                 } else {
                     rtc.removeConnectionType('displayMedia');

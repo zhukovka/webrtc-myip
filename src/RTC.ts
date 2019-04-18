@@ -24,7 +24,8 @@ interface RtcPeerConnections {
 }
 
 interface PeerConnections {
-    [key: string]: RtcPeerConnections;
+    userMedia?: RtcPeerConnections;
+    displayMedia?: RtcPeerConnections;
 }
 
 interface SourceStream {
@@ -49,8 +50,6 @@ class RTC implements SignalingDelegate {
     private id: string;
     private signaling: SignalingChannel;
     private readonly peerConnections: PeerConnections;
-    private streamDestination: StreamDestination = {};
-    private remoteDestination: StreamDestination = {};
     private emitters: ConnectionEmitter = {};
     private eventEmitter: EventEmitter<string | symbol>;
     private connectionsCount: number;
@@ -348,7 +347,7 @@ class RTC implements SignalingDelegate {
         this.log(userId);
         this.connectionsCount++;
         this.eventEmitter.emit(CLIENT_EVENTS.COUNT_CHANGED, this.connectionsCount);
-        for (const mediaType of Object.keys(this.streamDestination)) {
+        for (const mediaType of Object.keys(this.peerConnections)) {
             await this.createOffer(mediaType as MediaType, userId);
         }
     }
@@ -434,21 +433,17 @@ class RTC implements SignalingDelegate {
      * ```
      * const mediaType = 'userMedia';
      * const userMedia = document.getElementById("userMedia");
-     * rtc.setSourceVideo('userMedia', userMedia);
+     * rtc.setupMedia('userMedia', userMedia);
      * ```
      * @param type
      * @param videoElement
      * @param mediaConstraints - optional parameter. Defaults to `{ audio: true, video: true }` for user media (webcam)
      * and is *NOT* configurable for screen sharing as audio is not supported https://blog.mozilla.org/webrtc/getdisplaymedia-now-available-in-adapter-js/
      */
-    async setSourceVideo(type: MediaType = 'userMedia', videoElement: HTMLVideoElement, mediaConstraints?: MediaStreamConstraints): Promise<MediaStream> {
+    async setupMedia(type: MediaType = 'userMedia', mediaConstraints?: MediaStreamConstraints): Promise<MediaStream> {
         try {
             const stream = (type == 'userMedia') ? await this.getMedia(mediaConstraints) : await this.getDisplay();
-            if (videoElement) {
-                this.streamDestination[type] = videoElement;
-                this.streamDestination[type]['srcObject'] = stream;
-                this.sourceStream[type] = stream;
-            }
+            this.sourceStream[type] = stream;
             return stream;
         } catch (e) {
             throw e;
@@ -464,9 +459,6 @@ class RTC implements SignalingDelegate {
         //stop tracks from source video
         const stream = this.sourceStream[type];
         stream && this.stopTracks(stream.getTracks());
-        //remove stream from a video element
-        this.streamDestination[type]['srcObject'] = null;
-        delete this.streamDestination[type];
         
         //close all connections of the type
         for (const pcId of Object.keys(this.peerConnections[type])) {
@@ -482,6 +474,7 @@ class RTC implements SignalingDelegate {
      */
     addConnectionType(type: MediaType = 'userMedia'): void {
         const existingType = type == 'userMedia' ? 'displayMedia' : 'userMedia';
+        //invite all viewers of the existing media to a stream of a new type
         for (const pcId of Object.keys(this.peerConnections[existingType])) {
             this.createOffer(type, pcId).catch(console.error);
         }
