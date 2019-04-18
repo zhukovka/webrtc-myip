@@ -18,10 +18,12 @@ declare class RTC implements SignalingDelegate {
     private signaling;
     private readonly peerConnections;
     private streamDestination;
+    private remoteDestination;
     private emitters;
     private eventEmitter;
     private connectionsCount;
     private __debug;
+    private __isStreamer;
     /**
      * Creates WebRTC client instance
      * example:
@@ -76,6 +78,7 @@ declare class RTC implements SignalingDelegate {
     handleNewIceCandidateMsg({ sdpMLineIndex, sdpMid, candidate, from, mediaType }: ICECandidateMessage): void;
     private handleCandidate;
     private handleSourceTrack;
+    private handleTrackDisconnected;
     /**
      * {@link SignalingDelegate} method to handle socket event 'other' (other user joined)
      * @param userId
@@ -160,6 +163,7 @@ declare class RTC implements SignalingDelegate {
      * @param videoElement
      */
     connectDestinationVideo(type: MediaType, videoElement: HTMLVideoElement): EventEmitter;
+    disconnectDestinationVideo(type?: MediaType): void;
     on(event: string, fn: any, context?: any): EventEmitter<string | symbol>;
     off(event: string, fn: any, context?: any, once?: boolean): EventEmitter<string | symbol>;
     destroy(): void;

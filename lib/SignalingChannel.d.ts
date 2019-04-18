@@ -9,6 +9,7 @@ export interface SignalingDelegate {
 }
 declare class SignalingChannel {
     private wsURL;
+    _debug: boolean;
     private id;
     private __debug;
     constructor(wsURL: string);
