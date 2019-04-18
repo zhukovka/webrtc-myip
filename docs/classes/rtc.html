@@ -97,6 +97,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#connectdestinationvideo" class="tsd-kind-icon">connect<wbr>Destination<wbr>Video</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#destroy" class="tsd-kind-icon">destroy</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#disablevideo" class="tsd-kind-icon">disable<wbr>Video</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#disconnectdestinationvideo" class="tsd-kind-icon">disconnect<wbr>Destination<wbr>Video</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#handleanswermsg" class="tsd-kind-icon">handle<wbr>Answer<wbr>Msg</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#handledisconnect" class="tsd-kind-icon">handle<wbr>Disconnect</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#handlenewicecandidatemsg" class="tsd-kind-icon">handle<wbr>New<wbr>Ice<wbr>Candidate<wbr>Msg</a></li>
@@ -127,7 +128,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L56">RTC.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L58">RTC.ts:58</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -169,7 +170,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L466">RTC.ts:466</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L483">RTC.ts:483</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -199,7 +200,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L490">RTC.ts:490</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L507">RTC.ts:507</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -239,7 +240,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L505">RTC.ts:505</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L529">RTC.ts:529</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -256,7 +257,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L405">RTC.ts:405</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L422">RTC.ts:422</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -264,6 +265,29 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 									<p>Toggles enabled state of a user&#39;s media (webcam)</p>
 								</div>
 							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="disconnectdestinationvideo" class="tsd-anchor"></a>
+					<h3>disconnect<wbr>Destination<wbr>Video</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">disconnect<wbr>Destination<wbr>Video<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><a href="../globals.html#mediatype" class="tsd-signature-type">MediaType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L514">RTC.ts:514</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> type: <a href="../globals.html#mediatype" class="tsd-signature-type">MediaType</a><span class="tsd-signature-symbol"> =&nbsp;&quot;userMedia&quot;</span></h5>
+								</li>
+							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -278,7 +302,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L263">RTC.ts:263</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L271">RTC.ts:271</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -321,7 +345,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/signalingdelegate.html">SignalingDelegate</a>.<a href="../interfaces/signalingdelegate.html#handledisconnect">handleDisconnect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L513">RTC.ts:513</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L537">RTC.ts:537</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -351,7 +375,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L282">RTC.ts:282</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L291">RTC.ts:291</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -400,7 +424,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/signalingdelegate.html">SignalingDelegate</a>.<a href="../interfaces/signalingdelegate.html#handlenewuser">handleNewUser</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L330">RTC.ts:330</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L347">RTC.ts:347</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -430,7 +454,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L197">RTC.ts:197</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L200">RTC.ts:200</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -472,7 +496,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L360">RTC.ts:360</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L377">RTC.ts:377</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -510,7 +534,7 @@ rtc.<span class="hljs-keyword">join</span>(room, isStreamer);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L390">RTC.ts:390</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L407">RTC.ts:407</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -532,7 +556,7 @@ rtc.<span class="hljs-keyword">join</span>(room, isStreamer);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L501">RTC.ts:501</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L525">RTC.ts:525</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -564,7 +588,7 @@ rtc.<span class="hljs-keyword">join</span>(room, isStreamer);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L497">RTC.ts:497</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L521">RTC.ts:521</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -593,7 +617,7 @@ rtc.<span class="hljs-keyword">join</span>(room, isStreamer);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L446">RTC.ts:446</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L463">RTC.ts:463</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -625,7 +649,7 @@ rtc.<span class="hljs-keyword">join</span>(room, isStreamer);</code></pre>
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/signalingdelegate.html">SignalingDelegate</a>.<a href="../interfaces/signalingdelegate.html#setid">setId</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L343">RTC.ts:343</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L360">RTC.ts:360</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -655,7 +679,7 @@ rtc.<span class="hljs-keyword">join</span>(room, isStreamer);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L427">RTC.ts:427</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L444">RTC.ts:444</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -699,7 +723,7 @@ rtc.setSourceVideo(<span class="hljs-string">'userMedia'</span>, userMedia);</co
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/056127b/src/RTC.ts#L374">RTC.ts:374</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L391">RTC.ts:391</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -751,6 +775,9 @@ rtc.setSourceVideo(<span class="hljs-string">'userMedia'</span>, userMedia);</co
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
 								<a href="rtc.html#disablevideo" class="tsd-kind-icon">disable<wbr>Video</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="rtc.html#disconnectdestinationvideo" class="tsd-kind-icon">disconnect<wbr>Destination<wbr>Video</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
 								<a href="rtc.html#handleanswermsg" class="tsd-kind-icon">handle<wbr>Answer<wbr>Msg</a>
