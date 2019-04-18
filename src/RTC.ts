@@ -50,10 +50,12 @@ class RTC implements SignalingDelegate {
     private signaling: SignalingChannel;
     private readonly peerConnections: PeerConnections;
     private streamDestination: StreamDestination = {};
+    private remoteDestination: StreamDestination = {};
     private emitters: ConnectionEmitter = {};
     private eventEmitter: EventEmitter<string | symbol>;
     private connectionsCount: number;
     private __debug: boolean;
+    private __isStreamer: boolean;
     
     /**
      * Creates WebRTC client instance
@@ -200,6 +202,11 @@ class RTC implements SignalingDelegate {
             // 1. Create an RTCPeerConnection
             const pc = this.getOrCreatePeerConnection(mediaType, from);
             this.removeTracksFromPC(pc);
+        
+            if (this.__isStreamer) {
+                this.addTracksToPC(pc, this.sourceStream[mediaType]);
+            }
+        
             this.destStream[mediaType] = null;
             // 2. Create an RTCSessionDescription using the received SDP offer
             const desc = new RTCSessionDescription(sdp);
@@ -265,7 +272,8 @@ class RTC implements SignalingDelegate {
         const desc = new RTCSessionDescription(sdp);
         //2. Pass the session description to RTCPeerConnection.setRemoteDescription() to configure Caller’s WebRTC layer to
         //   know how Callee’s end of the connection is configured
-        this.peerConnections[mediaType][from].setRemoteDescription(desc).catch(console.error);
+        const pc = this.peerConnections[mediaType][from];
+        pc.setRemoteDescription(desc).catch(console.error);
     }
     
     
@@ -314,7 +322,7 @@ class RTC implements SignalingDelegate {
         const stream = this.destStream[mediaType] || new MediaStream();
         this.destStream[mediaType] = stream;
         
-        const video = this.streamDestination[mediaType];
+        const video = this.remoteDestination[mediaType];
         if (video) {
             video.srcObject = stream;
         } else {
@@ -358,8 +366,8 @@ class RTC implements SignalingDelegate {
      * @param isStreamer
      */
     async join(room: string, isStreamer: boolean): Promise<void> {
+        this.__isStreamer = isStreamer;
         await this.signaling.setupSocket();
-        
         let msg: JoinMessage = {
             type: MessageType.JOIN,
             room,
@@ -488,7 +496,7 @@ class RTC implements SignalingDelegate {
      * @param videoElement
      */
     connectDestinationVideo(type: MediaType = 'userMedia', videoElement: HTMLVideoElement): EventEmitter {
-        this.streamDestination[type] = videoElement;
+        this.remoteDestination[type] = videoElement;
         const emitter = new EventEmitter();
         this.emitters[type] = emitter;
         return emitter;
