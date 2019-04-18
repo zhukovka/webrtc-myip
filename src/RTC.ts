@@ -114,16 +114,16 @@ class RTC implements SignalingDelegate {
             // MediaStream[]        streams
             // RTCRtpTransceiver    transceiver
             pc.ontrack = (event) => {
-                this.log('Track event:', event);
+                this.log(`Track event for ${mediaType}`, event);
                 this.handleSourceTrack(event.track, mediaType);
             };
             pc.onconnectionstatechange = (event) => {
-                this.log(event.type, event);
-                this.handleConnectionStateChangeEvent(pc, mediaType);
+                this.log(event.type, pc.connectionState, this.id, event);
+                this.handleConnectionStateChangeEvent(pc.connectionState, mediaType);
             };
             pc.onsignalingstatechange = (event) => {
-                this.log(event.type, event);
-                this.handleConnectionStateChangeEvent(pc, mediaType);
+                this.log(event.type, pc.signalingState, this.id, event);
+                this.handleConnectionStateChangeEvent(pc.signalingState, mediaType);
             };
             pc.ondatachannel = (...args) => this.log('ondatachannel', args);
             pc.onnegotiationneeded = (...args) => this.log('onnegotiationneeded', args);
@@ -203,11 +203,11 @@ class RTC implements SignalingDelegate {
             // 1. Create an RTCPeerConnection
             const pc = this.getOrCreatePeerConnection(mediaType, from);
             this.removeTracksFromPC(pc);
-        
+            
             if (this.__isStreamer) {
                 this.addTracksToPC(pc, this.sourceStream[mediaType]);
             }
-        
+            
             this.destStream[mediaType] = null;
             // 2. Create an RTCSessionDescription using the received SDP offer
             const desc = new RTCSessionDescription(sdp);
@@ -236,9 +236,9 @@ class RTC implements SignalingDelegate {
         return null;
     }
     
-    private handleConnectionStateChangeEvent(pc: RTCPeerConnection, mediaType: MediaType) {
+    private handleConnectionStateChangeEvent(state: RTCSignalingState | RTCPeerConnectionState, mediaType: MediaType) {
         let stateEvent;
-        switch (pc.connectionState) {
+        switch (state) {
             case 'connected':
                 stateEvent = STATE_EVENTS.CONNECTED;
                 break;
@@ -330,6 +330,14 @@ class RTC implements SignalingDelegate {
             console.warn(`No video element for ${mediaType}`);
         }
         stream.addTrack(track);
+    }
+    
+    private handleTrackDisconnected(mediaType: MediaType) {
+        this.destStream[mediaType] = null;
+        const video = this.remoteDestination[mediaType];
+        if (video) {
+            video.srcObject = null;
+        }
     }
     
     /**
@@ -462,7 +470,7 @@ class RTC implements SignalingDelegate {
         
         //close all connections of the type
         for (const pcId of Object.keys(this.peerConnections[type])) {
-            this.log('close');
+            this.log(`close connection with ${pcId}`);
             this.peerConnections[type][pcId].close();
             delete this.peerConnections[type][pcId];
         }
@@ -501,6 +509,13 @@ class RTC implements SignalingDelegate {
         const emitter = new EventEmitter();
         this.emitters[type] = emitter;
         return emitter;
+    }
+    
+    disconnectDestinationVideo(type: MediaType = 'userMedia'): void {
+        this.remoteDestination[type]['srcObject'] = null;
+        delete this.remoteDestination[type];
+        const emitter = this.emitters[type];
+        emitter.removeAllListeners();
     }
     
     on(event: string, fn: any, context?: any): EventEmitter<string | symbol> {
