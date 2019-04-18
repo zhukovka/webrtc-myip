@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <title>WebRTC-myip | Video Chat Example</title>
 </head>
 
 <body>
-  <div id="root"></div>
+<div>
+    <p>Room <span id="room"></span></p>
+    <p><button id="join">Join</button></p>
+</div>
 
-  <script src="/index.js"></script>
+<div>
+    <video id="local" muted autoplay playsinline></video>
+    <video id="remote" muted autoplay playsinline></video>
+</div>
+
+<script src="vanila/index.js"></script>
 </body>
 </html>
