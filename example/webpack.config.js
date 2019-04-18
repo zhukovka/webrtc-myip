@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = {
     entry: {
         // react: './client/index.tsx',
-        chat: './client/chat.ts'
+        chat: './client/chat.ts',
+        live: './client/live.ts'
     },
     mode: 'development',
     devtool: 'inline-source-map',

@@ -1,5 +1,5 @@
 import { RTC_CONFIG, WS_SERVER_URL } from "./config";
-import RTC, { STATE_EVENTS } from "../../src/RTC";
+import RTC, { STATE_EVENTS } from "webrtc-myip";
 
 const queryString = require('query-string');
 let { room } = queryString.parse(location.search);
