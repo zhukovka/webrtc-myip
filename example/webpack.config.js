@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
     entry: {
         // react: './client/index.tsx',
-        vanila: './client/index.ts'
+        chat: './client/chat.ts'
     },
     mode: 'development',
     devtool: 'inline-source-map',
@@ -20,7 +20,7 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js']
     },
     output: {
-        filename: '[name]/index.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'public')
     }
 };

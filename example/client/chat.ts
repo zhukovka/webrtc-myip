@@ -3,7 +3,6 @@ import RTC, { STATE_EVENTS } from "../../src/RTC";
 
 const queryString = require('query-string');
 let { room } = queryString.parse(location.search);
-
 if (!room) {
     room = (Date.now() * Math.random()).toFixed();
     history.pushState({ room }, document.title, `${window.location.pathname}?room=${room}`);
@@ -28,6 +27,7 @@ async function start(room: string) {
     await rtc.setSourceVideo('userMedia', local);
     
     await rtc.join(room, true);
+    document.getElementById('join').parentElement.innerHTML = `Invite link: ${window.location.href}`;
 }
 
 document.getElementById('join').addEventListener('click', () => start(room));

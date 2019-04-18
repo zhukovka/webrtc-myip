@@ -16,6 +16,6 @@
     "node_modules"
   ],
   "files": [
-    "./client/index.ts"
+    "./client/chat.ts"
   ]
 }
