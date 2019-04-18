@@ -75,6 +75,7 @@ class RTC implements SignalingDelegate {
         };
         this.signaling = new SignalingChannel(wsURL);
         this.signaling.delegate = this;
+        this.signaling._debug = this.__debug;
         this.connectionsCount = 0;
         this.eventEmitter = new EventEmitter();
     }

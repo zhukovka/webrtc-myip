@@ -16,6 +16,9 @@ export interface SignalingDelegate {
 }
 
 class SignalingChannel {
+    set _debug(value: boolean) {
+        this.__debug = value;
+    }
     private id: string;
     private __debug: boolean;
     
