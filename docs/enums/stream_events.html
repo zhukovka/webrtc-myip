@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>StreamDestination | webrtc-myip</title>
+	<title>STREAM_EVENTS | webrtc-myip</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,57 +56,49 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="streamdestination.html">StreamDestination</a>
+					<a href="stream_events.html">STREAM_EVENTS</a>
 				</li>
 			</ul>
-			<h1>Interface StreamDestination</h1>
+			<h1>Enumeration STREAM_EVENTS</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
-				<ul class="tsd-hierarchy">
-					<li>
-						<span class="target">StreamDestination</span>
-					</li>
-				</ul>
-			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-external tsd-is-not-exported">
-							<h3>Properties</h3>
+						<section class="tsd-index-section tsd-is-external">
+							<h3>Enumeration members</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external tsd-is-not-exported"><a href="streamdestination.html#displaymedia" class="tsd-kind-icon">display<wbr>Media</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external tsd-is-not-exported"><a href="streamdestination.html#usermedia" class="tsd-kind-icon">user<wbr>Media</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum tsd-is-external"><a href="stream_events.html#remote_display" class="tsd-kind-icon">REMOTE_<wbr>DISPLAY</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum tsd-is-external"><a href="stream_events.html#remote_user_media" class="tsd-kind-icon">REMOTE_<wbr>USER_<wbr>MEDIA</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-external tsd-is-not-exported">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external tsd-is-not-exported">
-					<a name="displaymedia" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> display<wbr>Media</h3>
-					<div class="tsd-signature tsd-kind-icon">display<wbr>Media<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLVideoElement</span></div>
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+				<h2>Enumeration members</h2>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum tsd-is-external">
+					<a name="remote_display" class="tsd-anchor"></a>
+					<h3>REMOTE_<wbr>DISPLAY</h3>
+					<div class="tsd-signature tsd-kind-icon">REMOTE_<wbr>DISPLAY<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;remoteDisplay&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L37">RTC.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L18">RTC.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external tsd-is-not-exported">
-					<a name="usermedia" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> user<wbr>Media</h3>
-					<div class="tsd-signature tsd-kind-icon">user<wbr>Media<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLVideoElement</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum tsd-is-external">
+					<a name="remote_user_media" class="tsd-anchor"></a>
+					<h3>REMOTE_<wbr>USER_<wbr>MEDIA</h3>
+					<div class="tsd-signature tsd-kind-icon">REMOTE_<wbr>USER_<wbr>MEDIA<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;&quot;remoteUserMedia&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L36">RTC.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L17">RTC.ts:17</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -123,14 +115,26 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-enum tsd-is-external">
-						<a href="../enums/client_events.html" class="tsd-kind-icon">CLIENT_<wbr>EVENTS</a>
+						<a href="client_events.html" class="tsd-kind-icon">CLIENT_<wbr>EVENTS</a>
 					</li>
 					<li class=" tsd-kind-enum tsd-is-external">
-						<a href="../enums/messagetype.html" class="tsd-kind-icon">Message<wbr>Type</a>
+						<a href="messagetype.html" class="tsd-kind-icon">Message<wbr>Type</a>
 					</li>
-					<li class=" tsd-kind-enum tsd-is-external">
-						<a href="../enums/state_events.html" class="tsd-kind-icon">STATE_<wbr>EVENTS</a>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-enum tsd-is-external">
+						<a href="stream_events.html" class="tsd-kind-icon">STREAM_<wbr>EVENTS</a>
+						<ul>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum tsd-is-external">
+								<a href="stream_events.html#remote_display" class="tsd-kind-icon">REMOTE_<wbr>DISPLAY</a>
+							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum tsd-is-external">
+								<a href="stream_events.html#remote_user_media" class="tsd-kind-icon">REMOTE_<wbr>USER_<wbr>MEDIA</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-is-external">
 						<a href="../classes/rtc.html" class="tsd-kind-icon">RTC</a>
 					</li>
@@ -138,49 +142,34 @@
 						<a href="../classes/signalingchannel.html" class="tsd-kind-icon">Signaling<wbr>Channel</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
-						<a href="connectionemitter.html" class="tsd-kind-icon">Connection<wbr>Emitter</a>
+						<a href="../interfaces/connectionemitter.html" class="tsd-kind-icon">Connection<wbr>Emitter</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
-						<a href="icecandidatemessage.html" class="tsd-kind-icon">ICECandidate<wbr>Message</a>
+						<a href="../interfaces/icecandidatemessage.html" class="tsd-kind-icon">ICECandidate<wbr>Message</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
-						<a href="joinmessage.html" class="tsd-kind-icon">Join<wbr>Message</a>
+						<a href="../interfaces/joinmessage.html" class="tsd-kind-icon">Join<wbr>Message</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
-						<a href="negotiationmessage.html" class="tsd-kind-icon">Negotiation<wbr>Message</a>
+						<a href="../interfaces/negotiationmessage.html" class="tsd-kind-icon">Negotiation<wbr>Message</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
-						<a href="peerconnections.html" class="tsd-kind-icon">Peer<wbr>Connections</a>
+						<a href="../interfaces/peerconnections.html" class="tsd-kind-icon">Peer<wbr>Connections</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
-						<a href="rtcmessage.html" class="tsd-kind-icon">RTCMessage</a>
+						<a href="../interfaces/rtcmessage.html" class="tsd-kind-icon">RTCMessage</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="../interfaces/signalingdelegate.html" class="tsd-kind-icon">Signaling<wbr>Delegate</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
-						<a href="rtcpeerconnections.html" class="tsd-kind-icon">Rtc<wbr>Peer<wbr>Connections</a>
+						<a href="../interfaces/sourcestream.html" class="tsd-kind-icon">Source<wbr>Stream</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
-						<a href="signalingdelegate.html" class="tsd-kind-icon">Signaling<wbr>Delegate</a>
+						<a href="../interfaces/targetmessage.html" class="tsd-kind-icon">Target<wbr>Message</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
-						<a href="sourcestream.html" class="tsd-kind-icon">Source<wbr>Stream</a>
-					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface tsd-is-external tsd-is-not-exported">
-						<a href="streamdestination.html" class="tsd-kind-icon">Stream<wbr>Destination</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external tsd-is-not-exported">
-								<a href="streamdestination.html#displaymedia" class="tsd-kind-icon">display<wbr>Media</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external tsd-is-not-exported">
-								<a href="streamdestination.html#usermedia" class="tsd-kind-icon">user<wbr>Media</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-is-external">
-						<a href="targetmessage.html" class="tsd-kind-icon">Target<wbr>Message</a>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="../globals.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-is-external">
 						<a href="../globals.html#mediatype" class="tsd-kind-icon">Media<wbr>Type</a>

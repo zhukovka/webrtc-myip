@@ -91,13 +91,15 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-external">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-set-signature tsd-parent-kind-class tsd-is-external"><a href="rtc.html#_debug" class="tsd-kind-icon">_debug</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-external">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#addconnectiontype" class="tsd-kind-icon">add<wbr>Connection<wbr>Type</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#connectdestinationvideo" class="tsd-kind-icon">connect<wbr>Destination<wbr>Video</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#destroy" class="tsd-kind-icon">destroy</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#disablevideo" class="tsd-kind-icon">disable<wbr>Video</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#disconnectdestinationvideo" class="tsd-kind-icon">disconnect<wbr>Destination<wbr>Video</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#handleanswermsg" class="tsd-kind-icon">handle<wbr>Answer<wbr>Msg</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#handledisconnect" class="tsd-kind-icon">handle<wbr>Disconnect</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#handlenewicecandidatemsg" class="tsd-kind-icon">handle<wbr>New<wbr>Ice<wbr>Candidate<wbr>Msg</a></li>
@@ -105,12 +107,11 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#handleoffermsg" class="tsd-kind-icon">handle<wbr>Offer<wbr>Msg</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#join" class="tsd-kind-icon">join</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#mute" class="tsd-kind-icon">mute</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#off" class="tsd-kind-icon">off</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#on" class="tsd-kind-icon">on</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#removeconnectiontype" class="tsd-kind-icon">remove<wbr>Connection<wbr>Type</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#setid" class="tsd-kind-icon">set<wbr>Id</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#setsourcevideo" class="tsd-kind-icon">set<wbr>Source<wbr>Video</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#setupmedia" class="tsd-kind-icon">setup<wbr>Media</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#startscreensharing" class="tsd-kind-icon">start<wbr>Screen<wbr>Sharing</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#stop" class="tsd-kind-icon">stop</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="rtc.html#stopscreensharing" class="tsd-kind-icon">stop<wbr>Screen<wbr>Sharing</a></li>
 							</ul>
 						</section>
 					</div>
@@ -128,7 +129,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L58">RTC.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L53">RTC.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -159,94 +160,33 @@
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-set-signature tsd-parent-kind-class tsd-is-external">
+					<a name="_debug" class="tsd-anchor"></a>
+					<h3>_debug</h3>
+					<ul class="tsd-signatures tsd-kind-set-signature tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> _debug<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><a href="../globals.html#loglevel" class="tsd-signature-type">LogLevel</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L40">RTC.ts:40</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <a href="../globals.html#loglevel" class="tsd-signature-type">LogLevel</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
-					<a name="addconnectiontype" class="tsd-anchor"></a>
-					<h3>add<wbr>Connection<wbr>Type</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Connection<wbr>Type<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><a href="../globals.html#mediatype" class="tsd-signature-type">MediaType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L483">RTC.ts:483</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Opens PeerConnection of the specified <a href="../globals.html#mediatype">MediaType</a> on Presenter&#39;s side.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> type: <a href="../globals.html#mediatype" class="tsd-signature-type">MediaType</a><span class="tsd-signature-symbol"> =&nbsp;&quot;userMedia&quot;</span></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
-					<a name="connectdestinationvideo" class="tsd-anchor"></a>
-					<h3>connect<wbr>Destination<wbr>Video</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">connect<wbr>Destination<wbr>Video<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><a href="../globals.html#mediatype" class="tsd-signature-type">MediaType</a>, videoElement<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLVideoElement</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L507">RTC.ts:507</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Connects an HTMLVideoElement to an event emitter on <em>Viewer&#39;s</em> side.
-									Returns an event emitter to listen to events of <a href="../enums/state_events.html">STATE_EVENTS</a> types</p>
-								</div>
-								<p>Example:</p>
-								<pre><code>const userMedia = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"userMedia"</span>);
-const webcam = <span class="hljs-keyword">this</span>.rtc.connectDestinationVideo(<span class="hljs-string">'userMedia'</span>, userMedia);
-webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'webcam connected'</span>)
-      });</code></pre>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> type: <a href="../globals.html#mediatype" class="tsd-signature-type">MediaType</a><span class="tsd-signature-symbol"> =&nbsp;&quot;userMedia&quot;</span></h5>
-								</li>
-								<li>
-									<h5>videoElement: <span class="tsd-signature-type">HTMLVideoElement</span></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventEmitter</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
-					<a name="destroy" class="tsd-anchor"></a>
-					<h3>destroy</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L529">RTC.ts:529</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
 					<a name="disablevideo" class="tsd-anchor"></a>
 					<h3>disable<wbr>Video</h3>
@@ -257,7 +197,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L422">RTC.ts:422</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L394">RTC.ts:394</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -265,29 +205,6 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 									<p>Toggles enabled state of a user&#39;s media (webcam)</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
-					<a name="disconnectdestinationvideo" class="tsd-anchor"></a>
-					<h3>disconnect<wbr>Destination<wbr>Video</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">disconnect<wbr>Destination<wbr>Video<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><a href="../globals.html#mediatype" class="tsd-signature-type">MediaType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L514">RTC.ts:514</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> type: <a href="../globals.html#mediatype" class="tsd-signature-type">MediaType</a><span class="tsd-signature-symbol"> =&nbsp;&quot;userMedia&quot;</span></h5>
-								</li>
-							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -302,7 +219,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L271">RTC.ts:271</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L254">RTC.ts:254</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -345,7 +262,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/signalingdelegate.html">SignalingDelegate</a>.<a href="../interfaces/signalingdelegate.html#handledisconnect">handleDisconnect</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L537">RTC.ts:537</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L459">RTC.ts:459</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -375,7 +292,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L291">RTC.ts:291</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L274">RTC.ts:274</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -424,7 +341,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/signalingdelegate.html">SignalingDelegate</a>.<a href="../interfaces/signalingdelegate.html#handlenewuser">handleNewUser</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L347">RTC.ts:347</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L317">RTC.ts:317</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -454,7 +371,7 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L200">RTC.ts:200</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L207">RTC.ts:207</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -490,13 +407,13 @@ webcam.<span class="hljs-literal">on</span>(STATE_EVENTS.CONNECTED, <span class=
 					<a name="join" class="tsd-anchor"></a>
 					<h3>join</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">join<span class="tsd-signature-symbol">(</span>room<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, isStreamer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">join<span class="tsd-signature-symbol">(</span>room<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, isStreamer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L377">RTC.ts:377</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L347">RTC.ts:347</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -520,7 +437,7 @@ rtc.<span class="hljs-keyword">join</span>(room, isStreamer);</code></pre>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -534,7 +451,7 @@ rtc.<span class="hljs-keyword">join</span>(room, isStreamer);</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L407">RTC.ts:407</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L379">RTC.ts:379</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -542,98 +459,6 @@ rtc.<span class="hljs-keyword">join</span>(room, isStreamer);</code></pre>
 									<p>Toggles muted state of a user&#39;s audio</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
-					<a name="off" class="tsd-anchor"></a>
-					<h3>off</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">off<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, context<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, once<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L525">RTC.ts:525</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>event: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>fn: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> context: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> once: <span class="tsd-signature-type">boolean</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
-					<a name="on" class="tsd-anchor"></a>
-					<h3>on</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, fn<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, context<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L521">RTC.ts:521</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>event: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>fn: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> context: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
-					<a name="removeconnectiontype" class="tsd-anchor"></a>
-					<h3>remove<wbr>Connection<wbr>Type</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">remove<wbr>Connection<wbr>Type<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><a href="../globals.html#mediatype" class="tsd-signature-type">MediaType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L463">RTC.ts:463</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Closes PeerConnection of the specified <a href="../globals.html#mediatype">MediaType</a> on Presenter&#39;s side.
-									Removes media stream from the video element it is attached to.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> type: <a href="../globals.html#mediatype" class="tsd-signature-type">MediaType</a><span class="tsd-signature-symbol"> =&nbsp;&quot;userMedia&quot;</span></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
-								</li>
-							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -649,7 +474,7 @@ rtc.<span class="hljs-keyword">join</span>(room, isStreamer);</code></pre>
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/signalingdelegate.html">SignalingDelegate</a>.<a href="../interfaces/signalingdelegate.html#setid">setId</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L360">RTC.ts:360</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L330">RTC.ts:330</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -670,16 +495,16 @@ rtc.<span class="hljs-keyword">join</span>(room, isStreamer);</code></pre>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
-					<a name="setsourcevideo" class="tsd-anchor"></a>
-					<h3>set<wbr>Source<wbr>Video</h3>
+					<a name="setupmedia" class="tsd-anchor"></a>
+					<h3>setup<wbr>Media</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Source<wbr>Video<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><a href="../globals.html#mediatype" class="tsd-signature-type">MediaType</a>, videoElement<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLVideoElement</span>, mediaConstraints<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">MediaStreamConstraints</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MediaStream</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">setup<wbr>Media<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">?: </span><a href="../globals.html#mediatype" class="tsd-signature-type">MediaType</a>, mediaConstraints<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">MediaStreamConstraints</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MediaStream</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L444">RTC.ts:444</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L415">RTC.ts:415</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -691,15 +516,12 @@ rtc.<span class="hljs-keyword">join</span>(room, isStreamer);</code></pre>
 								<p>Example:</p>
 								<pre><code><span class="hljs-keyword">const</span> mediaType = <span class="hljs-string">'userMedia'</span>;
 <span class="hljs-keyword">const</span> userMedia = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"userMedia"</span>);
-rtc.setSourceVideo(<span class="hljs-string">'userMedia'</span>, userMedia);</code></pre>
+rtc.setupMedia(<span class="hljs-string">'userMedia'</span>, userMedia);</code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> type: <a href="../globals.html#mediatype" class="tsd-signature-type">MediaType</a><span class="tsd-signature-symbol"> =&nbsp;&quot;userMedia&quot;</span></h5>
-								</li>
-								<li>
-									<h5>videoElement: <span class="tsd-signature-type">HTMLVideoElement</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> mediaConstraints: <span class="tsd-signature-type">MediaStreamConstraints</span></h5>
@@ -714,6 +536,23 @@ rtc.setSourceVideo(<span class="hljs-string">'userMedia'</span>, userMedia);</co
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="startscreensharing" class="tsd-anchor"></a>
+					<h3>start<wbr>Screen<wbr>Sharing</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">start<wbr>Screen<wbr>Sharing<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MediaStream</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L500">RTC.ts:500</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">MediaStream</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
 					<a name="stop" class="tsd-anchor"></a>
 					<h3>stop</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
@@ -723,7 +562,7 @@ rtc.setSourceVideo(<span class="hljs-string">'userMedia'</span>, userMedia);</co
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/f6accb2/src/RTC.ts#L391">RTC.ts:391</a></li>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L363">RTC.ts:363</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -731,6 +570,23 @@ rtc.setSourceVideo(<span class="hljs-string">'userMedia'</span>, userMedia);</co
 									<p>Stops streams and disconnects from the socket server</p>
 								</div>
 							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="stopscreensharing" class="tsd-anchor"></a>
+					<h3>stop<wbr>Screen<wbr>Sharing</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">stop<wbr>Screen<wbr>Sharing<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zhukovka/webrtc-myip/blob/9d3086c/src/RTC.ts#L506">RTC.ts:506</a></li>
+								</ul>
+							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -754,7 +610,7 @@ rtc.setSourceVideo(<span class="hljs-string">'userMedia'</span>, userMedia);</co
 						<a href="../enums/messagetype.html" class="tsd-kind-icon">Message<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-enum tsd-is-external">
-						<a href="../enums/state_events.html" class="tsd-kind-icon">STATE_<wbr>EVENTS</a>
+						<a href="../enums/stream_events.html" class="tsd-kind-icon">STREAM_<wbr>EVENTS</a>
 					</li>
 				</ul>
 				<ul class="current">
@@ -764,20 +620,11 @@ rtc.setSourceVideo(<span class="hljs-string">'userMedia'</span>, userMedia);</co
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
 								<a href="rtc.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
-								<a href="rtc.html#addconnectiontype" class="tsd-kind-icon">add<wbr>Connection<wbr>Type</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
-								<a href="rtc.html#connectdestinationvideo" class="tsd-kind-icon">connect<wbr>Destination<wbr>Video</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
-								<a href="rtc.html#destroy" class="tsd-kind-icon">destroy</a>
+							<li class=" tsd-kind-set-signature tsd-parent-kind-class tsd-is-external">
+								<a href="rtc.html#_debug" class="tsd-kind-icon">_debug</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
 								<a href="rtc.html#disablevideo" class="tsd-kind-icon">disable<wbr>Video</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
-								<a href="rtc.html#disconnectdestinationvideo" class="tsd-kind-icon">disconnect<wbr>Destination<wbr>Video</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
 								<a href="rtc.html#handleanswermsg" class="tsd-kind-icon">handle<wbr>Answer<wbr>Msg</a>
@@ -801,22 +648,19 @@ rtc.setSourceVideo(<span class="hljs-string">'userMedia'</span>, userMedia);</co
 								<a href="rtc.html#mute" class="tsd-kind-icon">mute</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
-								<a href="rtc.html#off" class="tsd-kind-icon">off</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
-								<a href="rtc.html#on" class="tsd-kind-icon">on</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
-								<a href="rtc.html#removeconnectiontype" class="tsd-kind-icon">remove<wbr>Connection<wbr>Type</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
 								<a href="rtc.html#setid" class="tsd-kind-icon">set<wbr>Id</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
-								<a href="rtc.html#setsourcevideo" class="tsd-kind-icon">set<wbr>Source<wbr>Video</a>
+								<a href="rtc.html#setupmedia" class="tsd-kind-icon">setup<wbr>Media</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="rtc.html#startscreensharing" class="tsd-kind-icon">start<wbr>Screen<wbr>Sharing</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
 								<a href="rtc.html#stop" class="tsd-kind-icon">stop</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="rtc.html#stopscreensharing" class="tsd-kind-icon">stop<wbr>Screen<wbr>Sharing</a>
 							</li>
 						</ul>
 					</li>
@@ -843,20 +687,17 @@ rtc.setSourceVideo(<span class="hljs-string">'userMedia'</span>, userMedia);</co
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="../interfaces/rtcmessage.html" class="tsd-kind-icon">RTCMessage</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
-						<a href="../interfaces/rtcpeerconnections.html" class="tsd-kind-icon">Rtc<wbr>Peer<wbr>Connections</a>
-					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="../interfaces/signalingdelegate.html" class="tsd-kind-icon">Signaling<wbr>Delegate</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
 						<a href="../interfaces/sourcestream.html" class="tsd-kind-icon">Source<wbr>Stream</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-is-external tsd-is-not-exported">
-						<a href="../interfaces/streamdestination.html" class="tsd-kind-icon">Stream<wbr>Destination</a>
-					</li>
 					<li class=" tsd-kind-interface tsd-is-external">
 						<a href="../interfaces/targetmessage.html" class="tsd-kind-icon">Target<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="../globals.html#loglevel" class="tsd-kind-icon">Log<wbr>Level</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-is-external">
 						<a href="../globals.html#mediatype" class="tsd-kind-icon">Media<wbr>Type</a>
