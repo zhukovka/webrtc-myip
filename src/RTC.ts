@@ -34,10 +34,12 @@ interface ConnectionEmitter {
     displayMedia?: EventEmitter<string | symbol>;
 }
 
+export type LogLevel = 'log' | 'trace';
+
 class RTC implements SignalingDelegate {
-    set _debug(value: boolean) {
+    set _debug(value: LogLevel) {
         this.__debug = value;
-        this.signaling._debug = this.__debug;
+        this.signaling._debug = !!this.__debug;
     }
     
     private sourceStream: SourceStream = {};
@@ -47,7 +49,7 @@ class RTC implements SignalingDelegate {
     private readonly peerConnections: PeerConnections;
     private eventEmitter: EventEmitter<string | symbol>;
     private connectionsCount: number;
-    private __debug: boolean;
+    private __debug: LogLevel;
     private __isStreamer: boolean;
     
     /**
@@ -108,9 +110,11 @@ class RTC implements SignalingDelegate {
             };
             pc.onconnectionstatechange = (event) => {
                 this.log(event.type, pc.connectionState, this.id, event);
+                this.handleConnectionStateChangeEvent(pc, mediaType);
             };
             pc.onsignalingstatechange = (event) => {
                 this.log(event.type, pc.signalingState, this.id, event);
+                this.handleConnectionStateChangeEvent(pc, mediaType);
             };
             pc.ondatachannel = (...args) => this.log('ondatachannel', args);
             pc.onnegotiationneeded = (...args) => this.log('onnegotiationneeded', args);
@@ -121,6 +125,21 @@ class RTC implements SignalingDelegate {
             return;
         }
     }
+    
+    private handleConnectionStateChangeEvent(pc: RTCPeerConnection, mediaType: MediaType) {
+        switch (pc.connectionState) {
+            case 'connected':
+                break;
+            case 'failed':
+                break;
+            case 'closed':
+            case 'disconnected':
+                this.handlePeerDisconnected(pc, mediaType);
+                break;
+            default:
+                break;
+        }
+    };
     
     private addTracksToPC(peerConnection: RTCPeerConnection, stream: MediaStream) {
         if (!stream) {
@@ -291,10 +310,6 @@ class RTC implements SignalingDelegate {
         this.eventEmitter.emit(eventType, stream);
     }
     
-    private handleTrackDisconnected(mediaType: MediaType) {
-        this.destStream[mediaType] = null;
-    }
-    
     /**
      * {@link SignalingDelegate} method to handle socket event 'other' (other user joined)
      * @param userId
@@ -330,6 +345,7 @@ class RTC implements SignalingDelegate {
      * @param isStreamer
      */
     async join(room: string, isStreamer: boolean): Promise<EventEmitter<string | symbol>> {
+        this.log('join', room, isStreamer);
         this.__isStreamer = isStreamer;
         await this.signaling.setupSocket();
         let msg: JoinMessage = {
@@ -431,8 +447,8 @@ class RTC implements SignalingDelegate {
     private addConnectionType(type: MediaType = 'userMedia'): void {
         const existingType = type == 'userMedia' ? 'displayMedia' : 'userMedia';
         //invite all viewers of the existing media to a stream of a new type
-        for (const pcId of Object.keys(this.peerConnections[existingType])) {
-            this.createOffer(type, pcId).catch(console.error);
+        for (const peerId of Object.keys(this.peerConnections[existingType])) {
+            this.createOffer(type, peerId).catch(console.error);
         }
     }
     
@@ -474,6 +490,11 @@ class RTC implements SignalingDelegate {
         if (this.__debug) {
             console.log(...args);
         }
+        if (this.__debug == 'trace') {
+            console.groupCollapsed('trace');
+            console.trace();
+            console.groupEnd();
+        }
     }
     
     async startScreenSharing() {
@@ -484,6 +505,18 @@ class RTC implements SignalingDelegate {
     
     stopScreenSharing() {
         this.removeConnectionType('displayMedia');
+    }
+    
+    private handlePeerDisconnected(pc: RTCPeerConnection, mediaType: MediaType) {
+        this.destStream[mediaType] = null;
+        for (const peerId of Object.keys(this.peerConnections[mediaType])) {
+            if (this.peerConnections[mediaType][peerId] == pc) {
+                this.log(`delete ${mediaType} connection with ${peerId}`);
+                this.peerConnections[mediaType][peerId] = null;
+                delete this.peerConnections[mediaType][peerId];
+            }
+        }
+        this.eventEmitter.emit((mediaType == 'userMedia') ? STREAM_EVENTS.REMOTE_USER_MEDIA : STREAM_EVENTS.REMOTE_DISPLAY, null);
     }
 }
 
