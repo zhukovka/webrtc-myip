@@ -34,6 +34,7 @@ class SignalingChannel {
         this.socket = socket;
         return new Promise((resolve, reject) => {
             socket.on('connect', () => {
+                this.log('socket connected');
                 resolve();
             });
             socket.on('disconnect', (reason: string) => {

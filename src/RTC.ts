@@ -8,34 +8,25 @@ if (!adapter) {
 // unused import hack
 }
 
-export enum STATE_EVENTS {
-    CONNECTED = 'state-events/connected',
-    DISCONNECTED = 'state-events/disconnected',
-    FAILED = 'playback-events/failed',
-    CLOSED = 'playback-events/closed',
-}
-
 export enum CLIENT_EVENTS {
-    COUNT_CHANGED = 'client-events/count-changed',
+    COUNT_CHANGED = 'clientsCountChanged',
+    NEW_CLIENT = 'newClientConnected'
 }
 
-interface RtcPeerConnections {
-    [key: string]: RTCPeerConnection;
+export enum STREAM_EVENTS {
+    REMOTE_USER_MEDIA = 'remoteUserMedia',
+    REMOTE_DISPLAY = 'remoteDisplay'
 }
 
 interface PeerConnections {
-    userMedia?: RtcPeerConnections;
-    displayMedia?: RtcPeerConnections;
+    [type: string]: {
+        [id: string]: RTCPeerConnection;
+    };
 }
 
 interface SourceStream {
     userMedia?: MediaStream;
     displayMedia?: MediaStream;
-}
-
-interface StreamDestination {
-    userMedia?: HTMLVideoElement;
-    displayMedia?: HTMLVideoElement;
 }
 
 interface ConnectionEmitter {
@@ -44,13 +35,16 @@ interface ConnectionEmitter {
 }
 
 class RTC implements SignalingDelegate {
+    set _debug(value: boolean) {
+        this.__debug = value;
+        this.signaling._debug = this.__debug;
+    }
     
     private sourceStream: SourceStream = {};
     private destStream: SourceStream = {};
     private id: string;
     private signaling: SignalingChannel;
     private readonly peerConnections: PeerConnections;
-    private emitters: ConnectionEmitter = {};
     private eventEmitter: EventEmitter<string | symbol>;
     private connectionsCount: number;
     private __debug: boolean;
@@ -68,13 +62,9 @@ class RTC implements SignalingDelegate {
      * @param config
      */
     constructor(wsURL: string, private config?: RTCConfiguration) {
-        this.peerConnections = {
-            userMedia: {},
-            displayMedia: {}
-        };
+        this.peerConnections = {};
         this.signaling = new SignalingChannel(wsURL);
         this.signaling.delegate = this;
-        this.signaling._debug = this.__debug;
         this.connectionsCount = 0;
         this.eventEmitter = new EventEmitter();
     }
@@ -118,11 +108,9 @@ class RTC implements SignalingDelegate {
             };
             pc.onconnectionstatechange = (event) => {
                 this.log(event.type, pc.connectionState, this.id, event);
-                this.handleConnectionStateChangeEvent(pc.connectionState, mediaType);
             };
             pc.onsignalingstatechange = (event) => {
                 this.log(event.type, pc.signalingState, this.id, event);
-                this.handleConnectionStateChangeEvent(pc.signalingState, mediaType);
             };
             pc.ondatachannel = (...args) => this.log('ondatachannel', args);
             pc.onnegotiationneeded = (...args) => this.log('onnegotiationneeded', args);
@@ -150,8 +138,9 @@ class RTC implements SignalingDelegate {
     }
     
     private getOrCreatePeerConnection(mediaType: MediaType, userId: string): RTCPeerConnection {
-        const pc = this.peerConnections[mediaType][userId] || this.createPeerConnection(mediaType);
-        this.peerConnections[mediaType][userId] = pc;
+        const peerConnection = this.peerConnections[mediaType] || (this.peerConnections[mediaType] = {});
+        const pc = peerConnection[userId] || this.createPeerConnection(mediaType);
+        peerConnection[userId] = pc;
         return pc;
     }
     
@@ -235,30 +224,6 @@ class RTC implements SignalingDelegate {
         return null;
     }
     
-    private handleConnectionStateChangeEvent(state: RTCSignalingState | RTCPeerConnectionState, mediaType: MediaType) {
-        let stateEvent;
-        switch (state) {
-            case 'connected':
-                stateEvent = STATE_EVENTS.CONNECTED;
-                break;
-            case 'disconnected':
-                stateEvent = STATE_EVENTS.DISCONNECTED;
-                break;
-            case 'failed':
-                stateEvent = STATE_EVENTS.FAILED;
-                break;
-            case 'closed':
-                stateEvent = STATE_EVENTS.CLOSED;
-                break;
-            default:
-                break;
-        }
-        this.eventEmitter.emit(stateEvent);
-        if (this.emitters[mediaType]) {
-            this.emitters[mediaType].emit(stateEvent);
-        }
-    };
-    
     /**
      * {@link SignalingDelegate} method to handle socket message of type {@link NegotiationMessage}
      * meaning an answer to the Presenter's offer has been received.
@@ -321,22 +286,13 @@ class RTC implements SignalingDelegate {
     private handleSourceTrack(track: MediaStreamTrack, mediaType: MediaType): void {
         const stream = this.destStream[mediaType] || new MediaStream();
         this.destStream[mediaType] = stream;
-        
-        const video = this.remoteDestination[mediaType];
-        if (video) {
-            video.srcObject = stream;
-        } else {
-            console.warn(`No video element for ${mediaType}`);
-        }
         stream.addTrack(track);
+        const eventType = (mediaType == 'userMedia') ? STREAM_EVENTS.REMOTE_USER_MEDIA : STREAM_EVENTS.REMOTE_DISPLAY;
+        this.eventEmitter.emit(eventType, stream);
     }
     
     private handleTrackDisconnected(mediaType: MediaType) {
         this.destStream[mediaType] = null;
-        const video = this.remoteDestination[mediaType];
-        if (video) {
-            video.srcObject = null;
-        }
     }
     
     /**
@@ -347,7 +303,7 @@ class RTC implements SignalingDelegate {
         this.log(userId);
         this.connectionsCount++;
         this.eventEmitter.emit(CLIENT_EVENTS.COUNT_CHANGED, this.connectionsCount);
-        for (const mediaType of Object.keys(this.peerConnections)) {
+        for (const mediaType of Object.keys(this.sourceStream)) {
             await this.createOffer(mediaType as MediaType, userId);
         }
     }
@@ -373,7 +329,7 @@ class RTC implements SignalingDelegate {
      * @param room
      * @param isStreamer
      */
-    async join(room: string, isStreamer: boolean): Promise<void> {
+    async join(room: string, isStreamer: boolean): Promise<EventEmitter<string | symbol>> {
         this.__isStreamer = isStreamer;
         await this.signaling.setupSocket();
         let msg: JoinMessage = {
@@ -382,6 +338,7 @@ class RTC implements SignalingDelegate {
             isStreamer
         };
         this.signaling.sendMessage(msg);
+        return this.eventEmitter;
     }
     
     /**
@@ -436,7 +393,6 @@ class RTC implements SignalingDelegate {
      * rtc.setupMedia('userMedia', userMedia);
      * ```
      * @param type
-     * @param videoElement
      * @param mediaConstraints - optional parameter. Defaults to `{ audio: true, video: true }` for user media (webcam)
      * and is *NOT* configurable for screen sharing as audio is not supported https://blog.mozilla.org/webrtc/getdisplaymedia-now-available-in-adapter-js/
      */
@@ -481,49 +437,6 @@ class RTC implements SignalingDelegate {
     }
     
     /**
-     * Connects an HTMLVideoElement to an event emitter on *Viewer's* side.
-     * Returns an event emitter to listen to events of {@link STATE_EVENTS} types
-     *
-     * Example:
-     *
-     * ```
-     * const userMedia = document.getElementById("userMedia");
-     * const webcam = this.rtc.connectDestinationVideo('userMedia', userMedia);
-     * webcam.on(STATE_EVENTS.CONNECTED, () => {
-     *           console.log('webcam connected')
-     *       });
-     * ```
-     *
-     * @param type
-     * @param videoElement
-     */
-    connectDestinationVideo(type: MediaType = 'userMedia', videoElement: HTMLVideoElement): EventEmitter {
-        this.remoteDestination[type] = videoElement;
-        const emitter = new EventEmitter();
-        this.emitters[type] = emitter;
-        return emitter;
-    }
-    
-    disconnectDestinationVideo(type: MediaType = 'userMedia'): void {
-        this.remoteDestination[type]['srcObject'] = null;
-        delete this.remoteDestination[type];
-        const emitter = this.emitters[type];
-        emitter.removeAllListeners();
-    }
-    
-    on(event: string, fn: any, context?: any): EventEmitter<string | symbol> {
-        return this.eventEmitter.on(event, fn, context);
-    }
-    
-    off(event: string, fn: any, context?: any, once?: boolean): EventEmitter<string | symbol> {
-        return this.eventEmitter.off(event, fn, context, once);
-    }
-    
-    destroy(): void {
-        this.eventEmitter.removeAllListeners()
-    }
-    
-    /**
      * {@link SignalingDelegate} method to handle socket event of type 'disconnect'.
      * @param userId
      */
@@ -542,18 +455,18 @@ class RTC implements SignalingDelegate {
     
     private closeConnection(userId: string): void {
         for (const type of Object.keys(this.peerConnections)) {
-            const pc: RTCPeerConnection = this.peerConnections[type][userId];
+            const peerConnection = this.peerConnections[type];
+            const pc: RTCPeerConnection = peerConnection[userId];
             pc && pc.close();
-            delete this.peerConnections[type][userId];
+            delete peerConnection[userId];
         }
     }
     
     private closeAllConnections(): void {
-        for (const type of Object.keys(this.peerConnections)) {
-            for (const pc of Object.values(this.peerConnections[type])) {
-                pc.close();
-            }
-            this.peerConnections[type] = {};
+        //reduce peer connections map to peer connections array
+        const allPC = Object.values(this.peerConnections).reduce((arr, obj) => arr.concat(Object.values(obj)), []);
+        for (const pc of allPC) {
+            pc.close();
         }
     }
     
