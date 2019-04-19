@@ -18,7 +18,7 @@ A library for WebRTC media streaming
 ## Sample usage
 ```
 import { RTC_CONFIG, WS_SERVER_URL } from "./config";
-import RTC, { STATE_EVENTS } from "webrtc-myip";
+import RTC, { STREAM_EVENTS } from "webrtc-myip";
 
 const webcamEl = <HTMLVideoElement>document.getElementById('webcam');
 const screenEl = <HTMLVideoElement>document.getElementById('screen');
