@@ -1,5 +1,6 @@
 import { RTC_CONFIG, WS_SERVER_URL } from "./config";
-import RTC, { STATE_EVENTS } from "../../src";
+import RTC from "../../src";
+import { STREAM_EVENTS } from "../../src/RTC";
 
 const webcamEl = <HTMLVideoElement>document.getElementById('webcam');
 const screenEl = <HTMLVideoElement>document.getElementById('screen');
@@ -16,26 +17,37 @@ joinBtn.innerHTML = `Join as a ${isStreamer ? 'streamer' : 'viewer'}`;
 document.getElementById('room').innerHTML = room;
 
 const rtc = new RTC(WS_SERVER_URL, RTC_CONFIG);
-rtc['__debug'] = true;
+rtc._debug = 'trace';
 
 async function streamerFlow(room: string) {
-    await rtc.setupMedia('userMedia');
-    await rtc.join(room, isStreamer);
+    webcamEl.srcObject = await rtc.setupMedia('userMedia');
+    const connection = await rtc.join(room, isStreamer);
+}
+
+function addShareScreenBtn() {
+    let sharedScreen = false;
+    const shareBtn = document.createElement('button');
+    shareBtn.innerText = 'Add/Remove share screen';
+    shareBtn.addEventListener('click', async () => {
+        if (!sharedScreen) {
+            screenEl.srcObject = await rtc.startScreenSharing();
+        } else {
+            rtc.stopScreenSharing();
+            screenEl.srcObject = null;
+        }
+        sharedScreen = !sharedScreen;
+    });
+    screenEl.insertAdjacentElement('afterend', shareBtn);
 }
 
 async function viewerFlow(room: string) {
-    const webcam = rtc.connectDestinationVideo('userMedia', webcamEl);
-    webcam.on(STATE_EVENTS.CONNECTED, () => {
-        console.log('webcam connected')
+    const connection = await rtc.join(room, isStreamer);
+    connection.on(STREAM_EVENTS.REMOTE_USER_MEDIA, (stream: MediaStream) => {
+        webcamEl.srcObject = stream;
     });
-    const display = rtc.connectDestinationVideo('displayMedia', screenEl);
-    display.on(STATE_EVENTS.CONNECTED, () => {
-        console.log('display connected')
+    connection.on(STREAM_EVENTS.REMOTE_DISPLAY, (stream: MediaStream) => {
+        screenEl.srcObject = stream;
     });
-    display.on(STATE_EVENTS.CLOSED, () => {
-        console.log('display connection closed');
-    });
-    await rtc.join(room, isStreamer);
 }
 
 document.getElementById('join').addEventListener('click', async () => {
@@ -43,19 +55,7 @@ document.getElementById('join').addEventListener('click', async () => {
     try {
         if (isStreamer) {
             await streamerFlow(room);
-            let sharedScreen = false;
-            const shareBtn = document.createElement('button');
-            shareBtn.innerText = 'Add/Remove share screen';
-            shareBtn.addEventListener('click', async () => {
-                if (!sharedScreen) {
-                    await rtc.setupMedia('displayMedia');
-                    rtc.addConnectionType('displayMedia');
-                } else {
-                    rtc.removeConnectionType('displayMedia');
-                }
-                sharedScreen = !sharedScreen;
-            });
-            screenEl.insertAdjacentElement('afterend', shareBtn);
+            addShareScreenBtn();
         } else {
             await viewerFlow(room);
         }
