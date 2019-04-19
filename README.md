@@ -30,23 +30,18 @@ const rtc = new RTC(WS_SERVER_URL, RTC_CONFIG);
 console.log(room, isStreamer);
 
 async function streamerFlow(room: string) {
-    await rtc.setSourceVideo('userMedia', webcamEl);
-    await rtc.join(room, isStreamer);
+    webcamEl.srcObject = await rtc.setupMedia('userMedia');
+    const connection = await rtc.join(room, isStreamer);
 }
 
 async function viewerFlow(room: string) {
-    const webcam = rtc.connectDestinationVideo('userMedia', webcamEl);
-    webcam.on(STATE_EVENTS.CONNECTED, () => {
-        console.log('webcam connected')
+    const connection = await rtc.join(room, isStreamer);
+    connection.on(STREAM_EVENTS.REMOTE_USER_MEDIA, (stream: MediaStream) => {
+        webcamEl.srcObject = stream;
     });
-    const display = rtc.connectDestinationVideo('displayMedia', screenEl);
-    display.on(STATE_EVENTS.CONNECTED, () => {
-        console.log('display connected')
+    connection.on(STREAM_EVENTS.REMOTE_DISPLAY, (stream: MediaStream) => {
+        screenEl.srcObject = stream;
     });
-    display.on(STATE_EVENTS.DISCONNECTED, () => {
-        console.log('display disconnected')
-    });
-    await rtc.join(room, isStreamer);
 }
 
 if (isStreamer) {
