@@ -75,34 +75,42 @@
 					</thead>
 					<tbody><tr>
 							<td>1. Create webRTC client instance</td>
-							<td></td>
+							<td>1. Create webRTC client instance</td>
 						</tr>
 						<tr>
 							<td><code>const rtc = new RTC(WS_SERVER_URL, RTC_CONFIG);</code></td>
-							<td></td>
+							<td><code>const rtc = new RTC(WS_SERVER_URL, RTC_CONFIG);</code></td>
 						</tr>
 						<tr>
 							<td>2. Set media source</td>
-							<td>2. Set media destination     </td>
+							<td></td>
 						</tr>
 						<tr>
-							<td><code>rtc.setSourceVideo(&#39;userMedia&#39;, userMedia);</code></td>
-							<td><code>rtc.connectDestinationVideo(&#39;userMedia&#39;, userMedia);</code></td>
+							<td><code>rtc.setupMedia(&#39;userMedia&#39;);</code></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td>3. Join a room as a streamer</td>
-							<td>3. Join a room as a viewer     </td>
+							<td>2. Join a room as a viewer     </td>
 						</tr>
 						<tr>
 							<td><code>rtc.join(room, true);</code></td>
-							<td><code>rtc.join(room, false);</code></td>
+							<td><code>const connection = await rtc.join(room, false);</code></td>
+						</tr>
+						<tr>
+							<td>|  3. Observe stream events</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>|  <code>connection.on(STREAM_EVENTS.REMOTE_USER_MEDIA, (stream: MediaStream) =&gt; { webcamEl.srcObject = stream; });</code></td>
+							<td></td>
 						</tr>
 				</tbody></table>
 				<h2 id="install">Install</h2>
 				<p><code>npm install webrtc-myip</code></p>
 				<h2 id="sample-usage">Sample usage</h2>
 				<pre><code><span class="hljs-keyword">import</span> { RTC_CONFIG, WS_SERVER_URL } <span class="hljs-keyword">from</span> <span class="hljs-string">"./config"</span>;
-<span class="hljs-keyword">import</span> RTC, { STATE_EVENTS } <span class="hljs-keyword">from</span> <span class="hljs-string">"webrtc-myip"</span>;
+<span class="hljs-keyword">import</span> RTC, { STREAM_EVENTS } <span class="hljs-keyword">from</span> <span class="hljs-string">"webrtc-myip"</span>;
 
 <span class="hljs-keyword">const</span> webcamEl = &lt;HTMLVideoElement&gt;<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'webcam'</span>);
 <span class="hljs-keyword">const</span> screenEl = &lt;HTMLVideoElement&gt;<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'screen'</span>);
@@ -114,23 +122,18 @@
 <span class="hljs-built_in">console</span>.log(room, isStreamer);
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">streamerFlow</span>(<span class="hljs-params">room: <span class="hljs-built_in">string</span></span>) </span>{
-    <span class="hljs-keyword">await</span> rtc.setSourceVideo(<span class="hljs-string">'userMedia'</span>, webcamEl);
-    <span class="hljs-keyword">await</span> rtc.join(room, isStreamer);
+    webcamEl.srcObject = <span class="hljs-keyword">await</span> rtc.setupMedia(<span class="hljs-string">'userMedia'</span>);
+    <span class="hljs-keyword">const</span> connection = <span class="hljs-keyword">await</span> rtc.join(room, isStreamer);
 }
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">viewerFlow</span>(<span class="hljs-params">room: <span class="hljs-built_in">string</span></span>) </span>{
-    <span class="hljs-keyword">const</span> webcam = rtc.connectDestinationVideo(<span class="hljs-string">'userMedia'</span>, webcamEl);
-    webcam.on(STATE_EVENTS.CONNECTED, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'webcam connected'</span>)
+    <span class="hljs-keyword">const</span> connection = <span class="hljs-keyword">await</span> rtc.join(room, isStreamer);
+    connection.on(STREAM_EVENTS.REMOTE_USER_MEDIA, <span class="hljs-function">(<span class="hljs-params">stream: MediaStream</span>) =&gt;</span> {
+        webcamEl.srcObject = stream;
     });
-    <span class="hljs-keyword">const</span> display = rtc.connectDestinationVideo(<span class="hljs-string">'displayMedia'</span>, screenEl);
-    display.on(STATE_EVENTS.CONNECTED, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'display connected'</span>)
+    connection.on(STREAM_EVENTS.REMOTE_DISPLAY, <span class="hljs-function">(<span class="hljs-params">stream: MediaStream</span>) =&gt;</span> {
+        screenEl.srcObject = stream;
     });
-    display.on(STATE_EVENTS.DISCONNECTED, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'display disconnected'</span>)
-    });
-    <span class="hljs-keyword">await</span> rtc.join(room, isStreamer);
 }
 
 <span class="hljs-keyword">if</span> (isStreamer) {

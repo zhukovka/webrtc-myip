@@ -4,12 +4,14 @@ A library for WebRTC media streaming
 
 | **Presenter's flow**  	| **Viewer's flow**  	|
 |---------------------------|-----------------------|
-| 1. Create webRTC client instance  	   	||
-```const rtc = new RTC(WS_SERVER_URL, RTC_CONFIG);```||
-| 2. Set media source  	|  2. Set media destination 	
-```rtc.setSourceVideo('userMedia', userMedia);```| ```rtc.connectDestinationVideo('userMedia', userMedia);```
-| 3. Join a room as a streamer  	|  3. Join a room as a viewer 	
-```rtc.join(room, true);```|```rtc.join(room, false);```
+| 1. Create webRTC client instance |1. Create webRTC client instance|
+```const rtc = new RTC(WS_SERVER_URL, RTC_CONFIG);```|```const rtc = new RTC(WS_SERVER_URL, RTC_CONFIG);```|
+| 2. Set media source  	|  	
+```rtc.setupMedia('userMedia');```| 
+| 3. Join a room as a streamer  	|  2. Join a room as a viewer 	
+```rtc.join(room, true);```|```const connection = await rtc.join(room, false);```
+|   	|  3. Observe stream events
+|   	|  ```connection.on(STREAM_EVENTS.REMOTE_USER_MEDIA, (stream: MediaStream) => { webcamEl.srcObject = stream; });```
 
 ## Install
 `npm install webrtc-myip`
