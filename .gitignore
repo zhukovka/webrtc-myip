@@ -3,3 +3,4 @@
 /.idea/
 /lib-esm/
 /example/node_modules/
+/src/*.js
