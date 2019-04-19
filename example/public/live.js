@@ -2647,7 +2647,7 @@ if (typeof WebSocket !== 'undefined') {
   BrowserWebSocket = self.WebSocket || self.MozWebSocket;
 } else {
   try {
-    NodeWebSocket = __webpack_require__(/*! ws */ 1);
+    NodeWebSocket = __webpack_require__(/*! ws */ 0);
   } catch (e) { }
 }
 
@@ -17274,7 +17274,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 1:
+/***/ 0:
 /*!********************!*\
   !*** ws (ignored) ***!
   \********************/
