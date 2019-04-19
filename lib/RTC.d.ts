@@ -1,25 +1,23 @@
 import { ICECandidateMessage, MediaType, NegotiationMessage } from "./RTCMessage";
 import { SignalingDelegate } from "./SignalingChannel";
 import * as EventEmitter from "eventemitter3";
-export declare enum STATE_EVENTS {
-    CONNECTED = "state-events/connected",
-    DISCONNECTED = "state-events/disconnected",
-    FAILED = "playback-events/failed",
-    CLOSED = "playback-events/closed"
-}
 export declare enum CLIENT_EVENTS {
-    COUNT_CHANGED = "client-events/count-changed"
+    COUNT_CHANGED = "clientsCountChanged",
+    NEW_CLIENT = "newClientConnected"
 }
+export declare enum STREAM_EVENTS {
+    REMOTE_USER_MEDIA = "remoteUserMedia",
+    REMOTE_DISPLAY = "remoteDisplay"
+}
+export declare type LogLevel = 'log' | 'trace';
 declare class RTC implements SignalingDelegate {
     private config?;
+    _debug: LogLevel;
     private sourceStream;
     private destStream;
     private id;
     private signaling;
     private readonly peerConnections;
-    private streamDestination;
-    private remoteDestination;
-    private emitters;
     private eventEmitter;
     private connectionsCount;
     private __debug;
@@ -43,6 +41,7 @@ declare class RTC implements SignalingDelegate {
      * @param mediaType
      */
     private createPeerConnection;
+    private handleConnectionStateChangeEvent;
     private addTracksToPC;
     private removeTracksFromPC;
     private getOrCreatePeerConnection;
@@ -55,7 +54,6 @@ declare class RTC implements SignalingDelegate {
      * @param msg
      */
     handleOfferMsg({ mediaType, sdp, from }: NegotiationMessage): Promise<null>;
-    private handleConnectionStateChangeEvent;
     /**
      * {@link SignalingDelegate} method to handle socket message of type {@link NegotiationMessage}
      * meaning an answer to the Presenter's offer has been received.
@@ -78,7 +76,6 @@ declare class RTC implements SignalingDelegate {
     handleNewIceCandidateMsg({ sdpMLineIndex, sdpMid, candidate, from, mediaType }: ICECandidateMessage): void;
     private handleCandidate;
     private handleSourceTrack;
-    private handleTrackDisconnected;
     /**
      * {@link SignalingDelegate} method to handle socket event 'other' (other user joined)
      * @param userId
@@ -102,7 +99,7 @@ declare class RTC implements SignalingDelegate {
      * @param room
      * @param isStreamer
      */
-    join(room: string, isStreamer: boolean): Promise<void>;
+    join(room: string, isStreamer: boolean): Promise<EventEmitter<string | symbol>>;
     /**
      * Stops streams and disconnects from the socket server
      */
@@ -126,47 +123,24 @@ declare class RTC implements SignalingDelegate {
      * ```
      * const mediaType = 'userMedia';
      * const userMedia = document.getElementById("userMedia");
-     * rtc.setSourceVideo('userMedia', userMedia);
+     * rtc.setupMedia('userMedia', userMedia);
      * ```
      * @param type
-     * @param videoElement
      * @param mediaConstraints - optional parameter. Defaults to `{ audio: true, video: true }` for user media (webcam)
      * and is *NOT* configurable for screen sharing as audio is not supported https://blog.mozilla.org/webrtc/getdisplaymedia-now-available-in-adapter-js/
      */
-    setSourceVideo(type: MediaType, videoElement: HTMLVideoElement, mediaConstraints?: MediaStreamConstraints): Promise<MediaStream>;
+    setupMedia(type?: MediaType, mediaConstraints?: MediaStreamConstraints): Promise<MediaStream>;
     /**
      * Closes PeerConnection of the specified {@link MediaType} on Presenter's side.
      * Removes media stream from the video element it is attached to.
      * @param type
      */
-    removeConnectionType(type?: MediaType): void;
+    private removeConnectionType;
     /**
      * Opens PeerConnection of the specified {@link MediaType} on Presenter's side.
      * @param type
      */
-    addConnectionType(type?: MediaType): void;
-    /**
-     * Connects an HTMLVideoElement to an event emitter on *Viewer's* side.
-     * Returns an event emitter to listen to events of {@link STATE_EVENTS} types
-     *
-     * Example:
-     *
-     * ```
-     * const userMedia = document.getElementById("userMedia");
-     * const webcam = this.rtc.connectDestinationVideo('userMedia', userMedia);
-     * webcam.on(STATE_EVENTS.CONNECTED, () => {
-     *           console.log('webcam connected')
-     *       });
-     * ```
-     *
-     * @param type
-     * @param videoElement
-     */
-    connectDestinationVideo(type: MediaType, videoElement: HTMLVideoElement): EventEmitter;
-    disconnectDestinationVideo(type?: MediaType): void;
-    on(event: string, fn: any, context?: any): EventEmitter<string | symbol>;
-    off(event: string, fn: any, context?: any, once?: boolean): EventEmitter<string | symbol>;
-    destroy(): void;
+    private addConnectionType;
     /**
      * {@link SignalingDelegate} method to handle socket event of type 'disconnect'.
      * @param userId
@@ -175,5 +149,8 @@ declare class RTC implements SignalingDelegate {
     private closeConnection;
     private closeAllConnections;
     private log;
+    startScreenSharing(): Promise<MediaStream>;
+    stopScreenSharing(): void;
+    private handlePeerDisconnected;
 }
 export default RTC;
