@@ -411,11 +411,11 @@ class RTC implements SignalingDelegate {
      * Removes media stream from the video element it is attached to.
      * @param type
      */
-    removeConnectionType(type: MediaType = 'userMedia'): void {
+    private removeConnectionType(type: MediaType = 'userMedia'): void {
         //stop tracks from source video
         const stream = this.sourceStream[type];
         stream && this.stopTracks(stream.getTracks());
-        
+        delete this.sourceStream[type];
         //close all connections of the type
         for (const pcId of Object.keys(this.peerConnections[type])) {
             this.log(`close connection with ${pcId}`);
@@ -428,7 +428,7 @@ class RTC implements SignalingDelegate {
      * Opens PeerConnection of the specified {@link MediaType} on Presenter's side.
      * @param type
      */
-    addConnectionType(type: MediaType = 'userMedia'): void {
+    private addConnectionType(type: MediaType = 'userMedia'): void {
         const existingType = type == 'userMedia' ? 'displayMedia' : 'userMedia';
         //invite all viewers of the existing media to a stream of a new type
         for (const pcId of Object.keys(this.peerConnections[existingType])) {
@@ -474,6 +474,16 @@ class RTC implements SignalingDelegate {
         if (this.__debug) {
             console.log(...args);
         }
+    }
+    
+    async startScreenSharing() {
+        const media = await this.setupMedia('displayMedia');
+        this.addConnectionType('displayMedia');
+        return media;
+    }
+    
+    stopScreenSharing() {
+        this.removeConnectionType('displayMedia');
     }
 }
 
